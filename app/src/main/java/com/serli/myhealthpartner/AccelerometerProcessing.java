@@ -26,18 +26,7 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
         return instance;
     }
 
-    /**
-     * Step detecting parameter. How many periods it is sleeping.
-     * If DELAY_GAME: T ~= 20ms => f = 50Hz
-     * and MAX_TEMPO = 240bpms
-     * then:
-     * 60bpm - 1000milliseconds
-     * 240bpm - 250milliseconds
-     *
-     * n - periods
-     * n = 250msec / T
-     * n = 250 / 20 ~= 12
-     */
+
     private static final int INACTIVE_PERIODS = 12;
     public static final float THRESH_INIT_VALUE = 12.72f;
 
@@ -70,11 +59,7 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
     }
 
 
-    /**
-     * Get event time.
-     * @see <a href="http://stackoverflow.com/questions/5500765/accelerometer-sensorevent-timestamp">To miliseconds.</a>
-     * @return time in milliseconds
-     */
+
     public long timestampToMilliseconds() {
         return (new Date()).getTime() + (mEvent.timestamp - System.nanoTime()) / 1000000L;
     }
@@ -102,8 +87,6 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
 
     public double calcKalman(int i) {
         mAccelValues[i] = filter(mAccelValues[i]);
-        //mAccelValues[i] = Math.abs(mAccelValues[i] - mLastOne);
-        //mLastOne = mAccelValues[i];
         return mAccelValues[i];
     }
 
@@ -154,12 +137,7 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
         return mAccelValues[i];
     }
 
-    /**
-     * Exponential Moving average.
-     * @see <a href="http://stackoverflow.com/questions/16392142/android-accelerometer-profiling">Stack Overflow discussion</a>
-     * @param i signal identifier.
-     * @return the output vector.
-     */
+
     public double calcExpMovAvg(int i) {
         final double alpha = 0.1;
         mAccelValues[i] = alpha * mAccelValues[i] + (1 - alpha) * mAccelLastValues[i];
@@ -167,14 +145,8 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
         return mAccelValues[i];
     }
 
-    /**
-     * My step detection algorithm.
-     * When the value is over the threshold, the step is found and the algorithm sleeps for
-     * the specified distance which is {@link #INACTIVE_PERIODS this }.
-     * @param i signal identifier.
-     * @return step found / not found
-     */
-    public boolean stepDetected(int i) {
+
+      public boolean stepDetected(int i) {
         if (mInactiveCounter == INACTIVE_PERIODS) {
             mInactiveCounter = 0;
             if (!isActiveCounter)

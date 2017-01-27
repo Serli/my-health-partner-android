@@ -48,8 +48,7 @@ public class AccelerometerDetector implements SensorEventListener {
         } else {
             Log.d(TAG, "Failure! No accelerometer.");
         }
-        // get graph handles
-        // mAccelGraph = graph;
+
     }
 
     public void startDetector() {
@@ -61,7 +60,7 @@ public class AccelerometerDetector implements SensorEventListener {
 
     public void stopDetector() {
         mSensorManager.unregisterListener(this, mAccel);
-        // mAccelGraph.reset();
+
     }
 
     @Override
@@ -74,10 +73,7 @@ public class AccelerometerDetector implements SensorEventListener {
         mAccelResult[0] = mAccelProcessing.calcMagnitudeVector(0);
         mAccelResult[0] = mAccelProcessing.calcExpMovAvg(0);
         mAccelResult[1] = mAccelProcessing.calcMagnitudeVector(1);
-        //Log.d(TAG, "Vec: x= " + mAccelResult[0] + " C=" + eventMsecTime);
 
-        // update graph with value and timestamp
-        //mAccelGraph.invalidate(eventMsecTime, mAccelResult);
 
         // step detection
         if (mAccelProcessing.stepDetected(1)) {

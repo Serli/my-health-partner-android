@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ public class PodometreActivity extends AppCompatActivity {
     private TextView mStepCountTextView;
 
     private TextView mTimeValTextView;
-    //private MusicCreator mMusicCreator;
+
 
     private TimeCounter mTimer;
     private Handler mHandler = new Handler();
@@ -55,7 +54,6 @@ public class PodometreActivity extends AppCompatActivity {
         formatThreshTextView(AccelerometerProcessing.THRESH_INIT_VALUE);
         mStepCountTextView = (TextView)findViewById(R.id.stepcount_textView);
         mStepCountTextView.setText(String.valueOf(0));
-        //  mTempoValTextView = (TextView)findViewById(R.id.tempoval_textView);
         mTimeValTextView = (TextView)findViewById(R.id.timeVal_textView);
 
         // timer counter
@@ -114,30 +112,12 @@ public class PodometreActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-     /*   MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main_menu, menu);
-
-
-        // set string values for menu
-        String[] titles = getResources().getStringArray(R.array.nav_drawer_items);
-        for (int i = 0; i < titles.length; i++) {
-            menu.getItem(i).setTitle(titles[i]);
-        }
-        return super.onCreateOptionsMenu(menu);*/
-        return true;
+            return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-      /*  switch (item.getItemId()) {
-            case R.id.action_threshold:
-                saveThreshold();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }*/
-        return true;
+             return true;
     }
 
     private void saveThreshold() {
@@ -150,7 +130,7 @@ public class PodometreActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mAccelDetector.startDetector();
-        // mMusicCreator.startCSound();
+
         mTimer.resume();
     }
 
