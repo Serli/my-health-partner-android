@@ -42,7 +42,7 @@ public class AccelerometerDetector implements SensorEventListener {
         mSensorManager = sensorManager;
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null){
             mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            Log.d(TAG, "Success! There's a accelerometer. Resolution:" + mAccel.getResolution()
+            Log.d(TAG, "Success! Resolution:" + mAccel.getResolution()
                     + " Max range: " + mAccel.getMaximumRange()
                     + "\n Time interval: " + mAccel.getMinDelay() / 1000 + "ms.");
         } else {
