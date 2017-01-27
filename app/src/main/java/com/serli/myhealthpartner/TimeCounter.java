@@ -3,9 +3,7 @@ package com.serli.myhealthpartner;
 import android.os.Handler;
 import android.widget.TextView;
 
-/**
- * Created by kahina on 26/01/2017.
- */
+
 
 public class TimeCounter {
 

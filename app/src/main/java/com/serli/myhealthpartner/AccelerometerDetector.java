@@ -6,9 +6,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-/**
- * Created by kahina on 26/01/2017.
- */
+
 
 public class AccelerometerDetector implements SensorEventListener {
 

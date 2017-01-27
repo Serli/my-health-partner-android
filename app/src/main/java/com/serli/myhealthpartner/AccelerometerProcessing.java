@@ -1,8 +1,6 @@
 package com.serli.myhealthpartner;
 
-/**
- * Created by kahina on 26/01/2017.
- */
+
 
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
@@ -165,7 +163,7 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
 
     @Override
     public void onThresholdChange(double value) {
-        Log.d(TAG, "Current Threshold is: " + value);
+        Log.d(TAG, "actuel Threshold is: " + value);
         mThresholdValue = value;
     }
 }

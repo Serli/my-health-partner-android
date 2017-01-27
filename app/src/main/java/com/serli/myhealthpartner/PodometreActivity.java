@@ -15,9 +15,6 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-/**
- * Created by kahina on 26/01/2017.
- */
 
 public class PodometreActivity extends AppCompatActivity {
 
