@@ -1,5 +1,6 @@
 package com.serli.myhealthpartner;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
+
         controller = new MainController(this);
 
         acquisitionStarted = AccelerometerService.isRunning();
@@ -107,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (item.getItemId() == R.id.action_profile) {
             startActivity(new Intent(this, ProfileActivity.class));
         }
+        if (item.getItemId() == R.id.action_podometre) {
+            startActivity(new Intent(this, PodometreActivity.class));
+        }
+
         if (item.getItemId() == R.id.action_show_data) {
             RelativeLayout dataLayout = (RelativeLayout) findViewById(R.id.data_list_layout);
             if (dataLayout.getVisibility() == RelativeLayout.INVISIBLE) {

@@ -28,6 +28,9 @@
                 android:value="com.serli.myhealthpartner.MainActivity" />
         </activity>
 
+        <activity android:name="com.serli.myhealthpartner.PodometreActivity"
+            android:label="Podometre" />
+
         <service
             android:name=".AccelerometerService"
             android:enabled="true"
