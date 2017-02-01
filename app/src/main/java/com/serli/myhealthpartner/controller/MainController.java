@@ -10,6 +10,7 @@ import com.serli.myhealthpartner.model.AccelerometerData;
 import com.serli.myhealthpartner.model.CompleteData;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,14 +42,10 @@ public class MainController {
     /**
      * Start the acquisition of the accelerometer data.
      * It will start the service {@link AccelerometerService} with the given parameter.
-     * @param duration The duration of the acquisition.
-     * @param activity The sport activity performed during the acquisition.
      */
-    public void startAcquisition(long duration, int activity) {
+    public void startAcquisition() {
         if (!AccelerometerService.isRunning()) {
             Intent intent = new Intent(context, AccelerometerService.class);
-            intent.putExtra("duration", duration);
-            intent.putExtra("activity", activity);
             context.startService(intent);
         }
     }
@@ -65,28 +62,58 @@ public class MainController {
      */
     public void sendAcquisition() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(String.valueOf(R.string.url_server))
+                .baseUrl(String.valueOf("http://192.168.42.165:8080/"))
+                .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         PostTo post = retrofit.create(PostTo.class);
         ProfileController controllerProfile = new ProfileController(context);
 
-        ArrayList<AccelerometerData> data = dao.getData();
+        ArrayList<CompleteData> data = new ArrayList<>();
 
-        CompleteData cd = new CompleteData();
-        cd.setProfileData(controllerProfile.getProfile());
-        cd.setAccelerometerData(data);
+        ArrayList<AccelerometerData> accData = dao.getData();
 
-        Call<CompleteData> callData = post.sendData(cd);
-        callData.enqueue(new Callback<CompleteData>() {
+        Calendar curr = Calendar.getInstance();
+        Calendar birth = Calendar.getInstance();
+
+        birth.setTime(controllerProfile.getProfile().getBirthday());
+        int age = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+        curr.add(Calendar.YEAR,-age);
+        if(birth.after(curr))
+        {
+            age = age - 1;
+        }
+
+        for (int i = 0; i < accData.size(); i++) {
+            CompleteData cd = new CompleteData();
+            cd.setHeight(controllerProfile.getProfile().getHeight());
+            cd.setWeight(controllerProfile.getProfile().getWeight());
+            cd.setImei(controllerProfile.getProfile().getIMEI());
+
+            cd.setAge(age);
+            cd.setGender(controllerProfile.getProfile().getGender());
+            cd.setTimestamp(accData.get(i).getTimestamp());
+            cd.setX(accData.get(i).getX());
+            cd.setY(accData.get(i).getY());
+            cd.setZ(accData.get(i).getZ());
+            cd.setActivity(accData.get(i).getActivity());
+            data.add(cd);
+        }
+
+        deleteAcquisition();
+
+        Call<ArrayList<CompleteData>> callData = post.sendData(data);
+        callData.enqueue(new Callback<ArrayList<CompleteData>>() {
             @Override
-            public void onResponse(Call<CompleteData> call, Response<CompleteData> response) {
-                // SEND ACQUISITION OK !
+            public void onResponse(Call<ArrayList<CompleteData>> call, Response<ArrayList<CompleteData>> response) {
+                System.out.println("Send Acquisition OK !");
             }
 
             @Override
-            public void onFailure(Call<CompleteData> call, Throwable t) {
-                // SEND ACQUISITION KO !
+            public void onFailure(Call<ArrayList<CompleteData>> call, Throwable t) {
+                System.out.println("Send Acquisition KO !");
+                t.printStackTrace();
             }
         });
     }
@@ -94,7 +121,7 @@ public class MainController {
     /**
      * Delete the stored data.
      */
-    public void DeleteAcquisition() {
+    public void deleteAcquisition() {
         dao.deleteData();
     }
 

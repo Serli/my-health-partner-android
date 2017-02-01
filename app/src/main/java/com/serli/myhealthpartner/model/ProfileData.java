@@ -8,7 +8,7 @@ import java.util.Date;
 public class ProfileData {
 
     private int id_profile;
-    private int IMEI;
+    private long IMEI;
     private int height;
     private int weight;
     private Date birthday;
@@ -23,15 +23,15 @@ public class ProfileData {
         this.id_profile = id_profile;
     }
 
-    public int getIMEI() {
+    public long getIMEI() {
         return IMEI;
     }
 
-    public void setIMEI(int IMEI) {
+    public void setIMEI(long IMEI) {
         this.IMEI = IMEI;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
@@ -39,7 +39,7 @@ public class ProfileData {
         this.height = height;
     }
 
-    public float getWeight() {
+    public int getWeight() {
         return weight;
     }
 

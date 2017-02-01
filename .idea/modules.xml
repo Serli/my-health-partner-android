@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/my-health-partner-android.iml" filepath="$PROJECT_DIR$/my-health-partner-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/my-health-partner-androidP.iml" filepath="$PROJECT_DIR$/my-health-partner-androidP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-health-partner-android-final.iml" filepath="$PROJECT_DIR$/my-health-partner-android-final.iml" />
     </modules>
   </component>
 </project>

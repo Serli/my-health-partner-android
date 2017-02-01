@@ -19,11 +19,12 @@
     <string name="no">No</string>
     <string name="acquisition_sent">Acquisition sent</string>
     <string name="acquisition_deleted">Acquisition deleted</string>
-    <string name="url_server">URL SERVER</string>
-    <string name="activity_pedometre">Podometre</string>
+    <string name="url_server">http://192.168.42.165:8080/</string>
+    <string name="activity_podometre">Podometer</string>
     <string name="steps_count">Steps count:</string>
     <string name="thresh_val">Thresh val:</string>
     <string name="time_val">Time:</string>
+    <string name="invalid_profile">Invalid profile</string>
 
 
 

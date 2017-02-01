@@ -28,8 +28,20 @@
                 android:value="com.serli.myhealthpartner.MainActivity" />
         </activity>
 
-        <activity android:name="com.serli.myhealthpartner.PodometreActivity"
-            android:label="Podometre" />
+        <activity android:name=".PodometreActivity"
+            android:label="@string/activity_podometre"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.serli.myhealthpartner.MainActivity" />
+        </activity>
+
+        <receiver android:name="com.serli.myhealthpartner.PowerBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".AccelerometerService"
@@ -38,5 +50,8 @@
     </application>
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

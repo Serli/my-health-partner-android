@@ -4,6 +4,7 @@ import com.serli.myhealthpartner.model.AccelerometerData;
 import com.serli.myhealthpartner.model.CompleteData;
 import com.serli.myhealthpartner.model.ProfileData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,5 +18,5 @@ import retrofit2.http.POST;
 
 public interface PostTo {
     @POST("/data")
-    Call<CompleteData> sendData (@Body CompleteData data);
+    Call<ArrayList<CompleteData>> sendData (@Body ArrayList<CompleteData> data);
 }

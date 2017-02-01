@@ -16,7 +16,9 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.widget.Toast;
 
+import com.serli.myhealthpartner.controller.MainController;
 import com.serli.myhealthpartner.model.AccelerometerDAO;
 
 /**
@@ -33,12 +35,10 @@ public class AccelerometerService extends Service {
     public static final int MSG_ACQUISITION_START = 3;
     public static final int MSG_ACQUISITION_STOP = 4;
 
+    private MainController mainController;
 
     private final Messenger messenger = new Messenger(new IncomingMessageHandler());
     private Messenger clientMessenger = null;
-
-    private SoundPool soundPool;
-    private int soundID;
 
     private static boolean isRunning = false;
 
@@ -46,6 +46,7 @@ public class AccelerometerService extends Service {
 
     private int activity;
     private long duration;
+    private long previousTimestamp = 0;
 
     private Handler handler = new Handler();
 
@@ -58,7 +59,10 @@ public class AccelerometerService extends Service {
             float y = sensorEvent.values[1];
             float z = sensorEvent.values[2];
             long timestamp = System.currentTimeMillis() - SystemClock.elapsedRealtime() + sensorEvent.timestamp / 1000000;
-            dao.addEntry(x, y, z, timestamp, activity);
+            if (previousTimestamp == 0 || timestamp - previousTimestamp >= 99){
+                dao.addEntry(x, y, z, timestamp, activity);
+                previousTimestamp = timestamp;
+            }
         }
 
         @Override
@@ -69,14 +73,14 @@ public class AccelerometerService extends Service {
     private Runnable startRun = new Runnable() {
         @Override
         public void run() {
-            startAcquisition(duration);
+            startAcquisition();
         }
     };
 
-    private Runnable stopRun = new Runnable() {
+    private Runnable sendRun = new Runnable() {
         @Override
         public void run() {
-            stopAcquisition();
+            sendAcquisition();
         }
     };
 
@@ -87,75 +91,42 @@ public class AccelerometerService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        isRunning = true;
+        if (!isRunning) {
+            isRunning = true;
 
-        soundPool = new SoundPool(4, AudioManager.STREAM_ALARM, 100);
-        soundID = soundPool.load(this, R.raw.beep, 1);
+            mainController = new MainController(this);
+            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        dao = new AccelerometerDAO(this);
+            accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            dao = new AccelerometerDAO(this);
+        }
     }
 
     /**
      * the methode onStartCommand is called from the alarm, it schedules a new alarm for N minutes later, and spawns a thread to do its networking.
-     * * @return START_NOT_STICKY Constant to return from onStartCommand(Intent, int, int): if this service's process is killed while it is started, and there are no new start intents to deliver to it.
+     * * @return
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         dao.open();
-
-        activity = intent.getIntExtra("activity", 0);
-
-        duration = intent.getLongExtra("duration", 0);
-
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int i, int i1) {
-                soundPool.play(soundID, 1, 1, 1, 0, 1);
-
-                if (clientMessenger != null) {
-                    try {
-                        Message msg = Message.obtain(null, MSG_ACQUISITION_START );
-                        msg.replyTo = messenger;
-                        clientMessenger.send(msg);
-                    } catch (RemoteException e) {
-                    }
-                }
-
-                handler.postDelayed(startRun, AccelerometerService.this.getResources().getInteger(R.integer.start_delay));
-            }
-        });
-        return START_NOT_STICKY;
+        startRun.run();
+        return START_STICKY;
     }
 
     /**
      * Start the acquisition of the accelerometer data for the duration given.
-     *
-     * @param duration The duration of the acquisition.
      */
-    private void startAcquisition(long duration) {
-        sensorManager.registerListener(sensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-        handler.postDelayed(stopRun, duration);
+    private void startAcquisition() {
+        sensorManager.registerListener(sensorEventListener, accelerometerSensor, 100000);
+        handler.postDelayed(sendRun, 60000);
     }
 
     /**
      * Stop the acquisition of the accelerometer data.
      */
-    private void stopAcquisition() {
-        soundPool.play(soundID, 1, 1, 1, 0, 1);
-        if (clientMessenger != null) {
-            try {
-                Message msg = Message.obtain(null, MSG_ACQUISITION_STOP  );
-                msg.replyTo = messenger;
-                clientMessenger.send(msg);
-            } catch (RemoteException e) {
-            }
-        }
-        AccelerometerService.this.stopSelf();
-        //sendData();
+    private void sendAcquisition() {
+        mainController.sendAcquisition();
+        handler.postDelayed(sendRun, 60000);
     }
 
     /**
@@ -164,8 +135,7 @@ public class AccelerometerService extends Service {
     @Override
     public void onDestroy() {
         handler.removeCallbacks(startRun);
-        handler.removeCallbacks(stopRun);
-        soundPool.release();
+        handler.removeCallbacks(sendRun);
         sensorManager.unregisterListener(sensorEventListener, accelerometerSensor);
         dao.close();
         isRunning = false;

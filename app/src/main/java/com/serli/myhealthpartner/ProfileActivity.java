@@ -1,6 +1,7 @@
 package com.serli.myhealthpartner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -75,32 +76,38 @@ public class ProfileActivity extends AppCompatActivity {
             datePickerBirthday.updateDate(calendar_tmp.get(Calendar.YEAR), calendar_tmp.get(Calendar.MONTH), calendar_tmp.get(Calendar.DAY_OF_MONTH));
         }
 
-
         final Button button_validate = (Button) findViewById(R.id.button_validate);
         button_validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                profile.setId_profile(profile.getId_profile()+1);
-                profile.setGender(spinnerGender.getSelectedItemPosition());
-                profile.setHeight(Integer.parseInt(editTextHeight.getText().toString()));
-                profile.setWeight(Integer.parseInt(editTextWeight.getText().toString()));
+                if (editTextHeight.getText().length() > 0 && editTextWeight.getText().length() > 0) {
+                    profile.setId_profile(profile.getId_profile() + 1);
+                    profile.setGender(spinnerGender.getSelectedItemPosition());
+                    profile.setHeight(Integer.parseInt(editTextHeight.getText().toString()));
+                    profile.setWeight(Integer.parseInt(editTextWeight.getText().toString()));
 
-                int day = datePickerBirthday.getDayOfMonth();
-                int month = datePickerBirthday.getMonth();
-                int year = datePickerBirthday.getYear();
+                    int day = datePickerBirthday.getDayOfMonth();
+                    int month = datePickerBirthday.getMonth();
+                    int year = datePickerBirthday.getYear();
 
-                Calendar calendar_birthday = Calendar.getInstance();
-                calendar_birthday.set(year, month, day);
+                    Calendar calendar_birthday = Calendar.getInstance();
+                    calendar_birthday.set(year, month, day);
 
-                profile.setBirthday(calendar_birthday.getTime());
+                    profile.setBirthday(calendar_birthday.getTime());
 
-                TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-                telephonyManager.getDeviceId();
+                    TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                    telephonyManager.getDeviceId();
 
-                profile.setIMEI(Integer.parseInt(telephonyManager.getDeviceId()));
+                    profile.setIMEI(Long.parseLong(telephonyManager.getDeviceId()));
 
-                controller.setProfile(profile);
-                finish();
+                    controller.setProfile(profile);
+                    Intent myIntent = new Intent(ProfileActivity.this, AccelerometerService.class);
+                    ProfileActivity.this.startService(myIntent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(ProfileActivity.this, R.string.invalid_profile,Toast.LENGTH_LONG).show();
+                }
             }
         });
 

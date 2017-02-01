@@ -15,9 +15,10 @@
         android:title="@string/action_show_datas"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_podometre"
-        android:title="@string/activity_pedometre"
+        android:title="@string/activity_podometre"
         android:orderInCategory="100"
         app:showAsAction="never" />
 
