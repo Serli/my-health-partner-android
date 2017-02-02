@@ -30,11 +30,8 @@
 
         <activity android:name=".PodometreActivity"
             android:label="@string/activity_podometre"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.serli.myhealthpartner.MainActivity" />
+           >
+
         </activity>
 
         <receiver android:name="com.serli.myhealthpartner.PowerBroadcastReceiver">

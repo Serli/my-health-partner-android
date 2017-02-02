@@ -26,6 +26,14 @@ public class Database extends SQLiteOpenHelper {
     public final static String ACC_Z = "Z_pos";
     public final static String ACC_ACTIVITY = "Activity";
 
+    public final static String PODOMETRE_TABLE = "Podometre_DB";
+    public final static String PODOMETRE_TSTMP = "Timestamp";
+    public final static String PODOMETRE_STEPS = "steps";
+    public final static String PODOMETRE_DATE =  "date";
+
+
+
+
     /**
      * @param context The context where the class is called
      */
@@ -41,21 +49,28 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_PROFILE_TABLE = "CREATE TABLE " + PROFILE_TABLE + " ("
                 + PROFILE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + PROFILE_IMEI + " LONG NOT NULL,"
+                + PROFILE_IMEI + " INTEGER NOT NULL,"
                 + PROFILE_WEIGHT + " INTEGER NOT NULL,"
                 + PROFILE_HEIGHT + " INTEGER NOT NULL,"
-                + PROFILE_AGE + " LONG NOT NULL,"
+                + PROFILE_AGE + " DATE NOT NULL,"
                 + PROFILE_GENDER + " INTEGER NOT NULL" + ");";
 
         String CREATE_ACC_TABLE = "CREATE TABLE " + ACC_TABLE + " ("
-                + ACC_TSTMP + " LONG PRIMARY KEY,"
+                + ACC_TSTMP + " INTEGER PRIMARY KEY,"
                 + ACC_X + " FLOAT NOT NULL,"
                 + ACC_Y + " FLOAT NOT NULL,"
                 + ACC_Z + " FLOAT NOT NULL,"
                 + ACC_ACTIVITY + " INTEGER NOT NULL" + ");";
 
+        String CREATE_PODOMETRE_TABLE = "CREATE TABLE " + PODOMETRE_TABLE + " ("
+                + PODOMETRE_TSTMP + "  INTEGER NOT NULL,"
+                + PODOMETRE_STEPS + " INTEGER NOT NULL,"
+                + PODOMETRE_DATE + "  date PRIMARY KEY,"
+                + ");";
+
         sqLiteDatabase.execSQL(CREATE_PROFILE_TABLE);
         sqLiteDatabase.execSQL(CREATE_ACC_TABLE);
+        sqLiteDatabase.execSQL(CREATE_PODOMETRE_TABLE);
     }
 
     /**
@@ -68,9 +83,11 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String DROP_PROFILE_TABLE = "DROP TABLE IF EXISTS " + PROFILE_TABLE + ";";
         String DROP_ACC_TABLE = "DROP TABLE IF EXISTS " + ACC_TABLE + ";";
+        String DROP_PODOMETRE_TABLE = "DROP TABLE IF EXISTS " + PODOMETRE_TABLE + ";";
 
         sqLiteDatabase.execSQL(DROP_PROFILE_TABLE);
         sqLiteDatabase.execSQL(DROP_ACC_TABLE);
+        sqLiteDatabase.execSQL(DROP_PODOMETRE_TABLE);
         onCreate(sqLiteDatabase);
     }
 }
