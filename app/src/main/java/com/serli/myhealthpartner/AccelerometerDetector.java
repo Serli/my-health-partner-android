@@ -19,7 +19,6 @@ public class AccelerometerDetector implements SensorEventListener {
     public static final int CONFIG_SENSOR = SensorManager.SENSOR_DELAY_GAME;
 
     private double[] mAccelResult = new double[AccelerometerSignals.count];
-    //private AccelerometerGraph mAccelGraph;
     private AccelerometerProcessing mAccelProcessing = AccelerometerProcessing.getInstance();
 
     private SensorManager mSensorManager;
@@ -35,7 +34,7 @@ public class AccelerometerDetector implements SensorEventListener {
         mStepListener = listener;
     }
 
-    public AccelerometerDetector(SensorManager sensorManager/* AccelerometerGraph graph*/) {
+    public AccelerometerDetector(SensorManager sensorManager) {
         mStepListener = null;
         mSensorManager = sensorManager;
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null){
@@ -50,7 +49,7 @@ public class AccelerometerDetector implements SensorEventListener {
     }
 
     public void startDetector() {
-        // just starts just the accelerometer. It doesn't update the UI.
+        // just starts just the accelerometer
         if (!mSensorManager.registerListener(this, mAccel, CONFIG_SENSOR)) {
             Log.d(TAG,"The sensor is not supported and unsuccessfully enabled.");
         }

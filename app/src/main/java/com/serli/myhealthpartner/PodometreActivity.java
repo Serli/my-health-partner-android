@@ -19,15 +19,13 @@ import java.util.Locale;
 public class PodometreActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    private static final String PREFERENCES_NAME = "Values";
+//  private static final String PREFERENCES_NAME = "Values";
     private static final String PREFERENCES_VALUES_THRESHOLD_KEY = "threshold";
     private SharedPreferences preferences;
     private int mStepCount = 0;
     private AccelerometerDetector mAccelDetector;
     private TextView mThreshValTextView;
     private TextView mStepCountTextView;
-
     private TextView mTimeValTextView;
 
 
@@ -36,9 +34,6 @@ public class PodometreActivity extends AppCompatActivity {
 
     // constant reference
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
-
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +52,6 @@ public class PodometreActivity extends AppCompatActivity {
         mTimer = new TimeCounter(mHandler,mTimeValTextView);
         mTimer.start();
 
-
-
         // initialize accelerometer
         SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         mAccelDetector = new AccelerometerDetector(sensorManager);
@@ -76,7 +69,7 @@ public class PodometreActivity extends AppCompatActivity {
 
     /**
      * SeekBar is the publisher.
-     * The subscribers are: AccelerometerGraph and AccelerometerProcessing instances.
+     *
      */
     private void initializeSeekBar() {
         final SeekBar seekBar = (SeekBar)findViewById(R.id.offset_seekBar);

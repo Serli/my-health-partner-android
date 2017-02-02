@@ -27,6 +27,7 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
 
     private static final int INACTIVE_PERIODS = 12;
     public static final float THRESH_INIT_VALUE = 12.72f;
+    public static final int count = AccelerometerSignals.values().length;
 
     // dynamic variables
     private int mInactiveCounter = 0;
