@@ -27,9 +27,14 @@ public class Database extends SQLiteOpenHelper {
     public final static String ACC_ACTIVITY = "Activity";
 
     public final static String PODOMETRE_TABLE = "Podometre_DB";
-    public final static String PODOMETRE_TSTMP = "Timestamp";
-    public final static String PODOMETRE_STEPS = "steps";
     public final static String PODOMETRE_DATE =  "date";
+    public final static String PODOMETRE_TSTMP = "Timestamp";
+    public final static String PODOMETRE_STEPS = "Steps";
+    public final static String PODOMETRE_DISTANCE = "Distance";
+    public final static String PODOMETRE_CALORIES = "Calories";
+    public final static String PODOMETRE_ACTIVITY = "Activity";
+
+
 
 
 
@@ -63,9 +68,12 @@ public class Database extends SQLiteOpenHelper {
                 + ACC_ACTIVITY + " INTEGER NOT NULL" + ");";
 
         String CREATE_PODOMETRE_TABLE = "CREATE TABLE " + PODOMETRE_TABLE + " ("
+                + PODOMETRE_DATE + "  date PRIMARY KEY,"
                 + PODOMETRE_TSTMP + "  INTEGER NOT NULL,"
                 + PODOMETRE_STEPS + " INTEGER NOT NULL,"
-                + PODOMETRE_DATE + "  date PRIMARY KEY,"
+                + PODOMETRE_DISTANCE + " INTEGER NOT NULL,"
+                + PODOMETRE_CALORIES + " INTEGER NOT NULL,"
+                + PODOMETRE_ACTIVITY + " INTEGER NOT NULL,"
                 + ");";
 
         sqLiteDatabase.execSQL(CREATE_PROFILE_TABLE);

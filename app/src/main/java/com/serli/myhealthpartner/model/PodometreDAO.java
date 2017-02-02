@@ -16,7 +16,8 @@ public class PodometreDAO {
 
     private Database database;
     private SQLiteDatabase db;
-    private String[] allColumns = { database.PODOMETRE_TSTMP, database.PODOMETRE_STEPS , database.PODOMETRE_DATE};
+    private String[] allColumns = { database.PODOMETRE_DATE, database.PODOMETRE_TSTMP, database.PODOMETRE_STEPS,
+                                    database.PODOMETRE_CALORIES, database.PODOMETRE_DISTANCE, database.PODOMETRE_ACTIVITY};
 
     /**
      *
@@ -55,9 +56,13 @@ public class PodometreDAO {
             db.delete(Database.PODOMETRE_TABLE, null,null);
 
             ContentValues values = new ContentValues();
+            values.put(Database.PODOMETRE_DATE, data.getDate().getTime());
             values.put(Database.PODOMETRE_TSTMP, data.getTstmp());
             values.put(Database.PODOMETRE_STEPS, data.getSteps());
-            values.put(Database.PODOMETRE_DATE, data.getDate().getTime());
+            values.put(Database.PODOMETRE_CALORIES, data.getCalories());
+            values.put(Database.PODOMETRE_DISTANCE, data.getDistance());
+            values.put(Database.PODOMETRE_ACTIVITY, data.getActivity());
+
 
             db.insert(Database.PODOMETRE_TABLE, null, values);
 
@@ -84,6 +89,9 @@ public class PodometreDAO {
             podo_data.setDate(d);
             podo_data.setTstmp(cursor.getInt(2));
             podo_data.setSteps(cursor.getInt(3));
+            podo_data.setCalories(cursor.getInt(4));
+            podo_data.setDistance(cursor.getInt(5));
+            podo_data.setActivity(cursor.getInt(6));
 
         }
 

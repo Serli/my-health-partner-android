@@ -13,6 +13,9 @@ public class PodometreData {
     private int steps;
     private int tstmp;
     private Date date;
+    private double calories;
+    private double distance;
+    private int activity;
 
 
     public int getSteps() {
@@ -39,4 +42,27 @@ public class PodometreData {
         this.date = date;
     }
 
+    public double getCalories(){
+        return calories;
+    }
+
+    public void setCalories(double calories) {
+        this.calories = calories;
+    }
+
+    public double getDistance(){
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public int getActivity() {
+        return activity;
+    }
+
+    public void setActivity(int activity) {
+        this.activity = activity;
+    }
 }
