@@ -12,6 +12,9 @@ import retrofit2.Retrofit;
  * Created by nathan on 01/02/17.
  */
 
+/**
+ * Class which manages empty data sent on the server
+ */
 public class NullOnEmptyConverterFactory extends Converter.Factory {
 
     @Override
