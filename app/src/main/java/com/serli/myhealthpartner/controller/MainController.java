@@ -51,13 +51,6 @@ public class MainController {
     }
 
     /**
-     * Stop the acquisition if the service {@link AccelerometerService} is running.
-     */
-    public void stopAcquisition() {
-        context.stopService(new Intent(context, AccelerometerService.class));
-    }
-
-    /**
      * Send the stored data to the server, then delete it.
      */
     public void sendAcquisition() {

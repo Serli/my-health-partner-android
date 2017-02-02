@@ -16,6 +16,9 @@ import retrofit2.http.POST;
  * Created by nathan on 21/12/16.
  */
 
+/**
+ * Communication mobile to server
+ */
 public interface PostTo {
     @POST("/data")
     Call<ArrayList<CompleteData>> sendData (@Body ArrayList<CompleteData> data);
