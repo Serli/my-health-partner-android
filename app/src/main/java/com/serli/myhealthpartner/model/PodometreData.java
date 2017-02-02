@@ -8,11 +8,9 @@ import java.util.Date;
 
 public class PodometreData {
 
-
-
+    private long tstmp;
+    private long duration;
     private int steps;
-    private int tstmp;
-    private Date date;
     private double calories;
     private double distance;
     private int activity;
@@ -26,20 +24,20 @@ public class PodometreData {
         this.steps = steps;
     }
 
-    public int getTstmp() {
+    public long getTstmp() {
         return tstmp;
     }
 
-    public void setTstmp(int tstmp) {
+    public void setTstmp(long tstmp) {
         this.tstmp = tstmp;
     }
 
-    public Date getDate() {
-        return date;
+    public long getDuration() {
+        return duration;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public double getCalories(){
