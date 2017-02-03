@@ -128,8 +128,37 @@ tools:context=".PodometreActivity">
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/infoc_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="6">
 
+            <TextView
+                android:layout_weight="2.03"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/calorie"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:id="@+id/calorie_affiche" />
+
+            <TextView
+                android:layout_weight="3.44"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/number_calorie"
+                android:gravity="center" />
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

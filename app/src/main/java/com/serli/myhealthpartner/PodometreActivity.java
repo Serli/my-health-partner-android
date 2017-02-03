@@ -12,7 +12,10 @@ import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.serli.myhealthpartner.controller.ProfileController;
+
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 
@@ -32,6 +35,17 @@ public class PodometreActivity extends AppCompatActivity {
     private TimeCounter mTimer;
     private Handler mHandler = new Handler();
 
+    /***************/
+    private ProfileController profController ;
+    int height;
+    int weight;
+    int gender;
+    double resultE = 0;
+    String result;
+    TextView counter;
+    TextView number_calorie;
+    double res = 0;
+    /***************/
     // constant reference
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
 
@@ -48,6 +62,15 @@ public class PodometreActivity extends AppCompatActivity {
         mStepCountTextView.setText(String.valueOf(0));
         mTimeValTextView = (TextView)findViewById(R.id.timeVal_textView);
 
+        /****************/
+        counter = (TextView) findViewById(R.id.calorie_affiche);
+        number_calorie=(TextView)findViewById(R.id.number_calorie);
+        profController = new ProfileController(this);
+        height = profController.getProfile().getHeight();
+        weight = profController.getProfile().getWeight();
+        gender = profController.getProfile().getGender();
+        /****************/
+
         // timer counter
         mTimer = new TimeCounter(mHandler,mTimeValTextView);
         mTimer.start();
@@ -59,6 +82,9 @@ public class PodometreActivity extends AppCompatActivity {
             @Override
             public void onStepCountChange(long eventMsecTime) {
                 ++mStepCount;
+                res = getCaloris()*mStepCount;
+                result = res + " cal";
+                number_calorie.setText(result);
                 mStepCountTextView.setText(String.valueOf(mStepCount));
             }
         });
@@ -136,5 +162,29 @@ public class PodometreActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "OnStop");
+    }
+
+    public int getAge() {
+        Calendar curr = Calendar.getInstance();
+        Calendar birth = Calendar.getInstance();
+
+        birth.setTime(profController.getProfile().getBirthday());
+        int age = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+        curr.add(Calendar.YEAR, -age);
+        if (birth.after(curr)) {
+            age = age - 1;
+        }
+        return age;
+    }
+
+    public double getCaloris(){
+        if (gender == 0) {
+            resultE = height * 0.415 * 0.00001 * (weight*2.02);
+        }
+        if (gender==1) {
+            resultE = height * 0.413 * 0.00001 * (weight*2.02);
+        }
+
+        return resultE;
     }
 }
