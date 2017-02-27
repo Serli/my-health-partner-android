@@ -42,9 +42,15 @@ public class PodometreActivity extends AppCompatActivity {
     int gender;
     double resultE = 0;
     String result;
-    TextView counter;
+    String distan;
+    TextView afficher_calorie;
     TextView number_calorie;
+    TextView calcul_dist;
+    TextView affiche_dist;
     double res = 0;
+    double countDist = 0;
+    double distance=0;
+    TextView dist;
     /***************/
     // constant reference
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
@@ -63,8 +69,10 @@ public class PodometreActivity extends AppCompatActivity {
         mTimeValTextView = (TextView)findViewById(R.id.timeVal_textView);
 
         /****************/
-        counter = (TextView) findViewById(R.id.calorie_affiche);
+        afficher_calorie = (TextView) findViewById(R.id.calorie_affiche);
         number_calorie=(TextView)findViewById(R.id.number_calorie);
+        affiche_dist = (TextView)findViewById(R.id.dist_travelled);
+        calcul_dist = (TextView)findViewById(R.id.count_distance);
         profController = new ProfileController(this);
         height = profController.getProfile().getHeight();
         weight = profController.getProfile().getWeight();
@@ -82,9 +90,12 @@ public class PodometreActivity extends AppCompatActivity {
             @Override
             public void onStepCountChange(long eventMsecTime) {
                 ++mStepCount;
-                res = getCaloris()*mStepCount;
+                res = (double) Math.round((getCaloris()*mStepCount) * 100) / 100;
+                countDist = (double) Math.round((getDistance() * mStepCount) * 100) / 100; // 4.248 --> 4.25
+                distan = countDist + "Km";
                 result = res + " cal";
                 number_calorie.setText(result);
+                affiche_dist.setText(distan);
                 mStepCountTextView.setText(String.valueOf(mStepCount));
             }
         });
@@ -180,11 +191,23 @@ public class PodometreActivity extends AppCompatActivity {
     public double getCaloris(){
         if (gender == 0) {
             resultE = height * 0.415 * 0.00001 * (weight*2.02);
+
         }
         if (gender==1) {
             resultE = height * 0.413 * 0.00001 * (weight*2.02);
+
         }
 
         return resultE;
+    }
+
+    public double getDistance(){
+        if (gender == 0) {
+            distance = height * 0.415 * 0.00001;
+        }
+        if (gender==1) {
+            distance = height * 0.413 * 0.00001;
+        }
+        return distance;
     }
 }
