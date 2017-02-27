@@ -2,6 +2,7 @@ package com.serli.myhealthpartner;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,10 +42,11 @@ public class PodometreActivity extends AppCompatActivity {
     int weight;
     int gender;
     double resultE = 0;
-    String result;
-    TextView counter;
-    TextView number_calorie;
-    double res = 0;
+    String resultCalories, resultDistance;
+    TextView counterCalories, counterDistance;
+    TextView numberCalories, distanceTravelled;
+    double resCalories = 0;
+    double resDistance = 0;
     /***************/
     // constant reference
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
@@ -63,8 +65,10 @@ public class PodometreActivity extends AppCompatActivity {
         mTimeValTextView = (TextView)findViewById(R.id.timeVal_textView);
 
         /****************/
-        counter = (TextView) findViewById(R.id.calorie_affiche);
-        number_calorie=(TextView)findViewById(R.id.number_calorie);
+        counterCalories = (TextView) findViewById(R.id.calorie_affiche);
+        numberCalories=(TextView)findViewById(R.id.number_calories);
+        counterDistance=(TextView) findViewById(R.id.distance_affiche);
+        distanceTravelled=(TextView)findViewById(R.id.number_distance);
         profController = new ProfileController(this);
         height = profController.getProfile().getHeight();
         weight = profController.getProfile().getWeight();
@@ -82,9 +86,12 @@ public class PodometreActivity extends AppCompatActivity {
             @Override
             public void onStepCountChange(long eventMsecTime) {
                 ++mStepCount;
-                res = getCaloris()*mStepCount;
-                result = res + " cal";
-                number_calorie.setText(result);
+                resCalories = getCalories()*mStepCount;
+                resultCalories = resCalories + " cal";
+                numberCalories.setText(resultCalories);
+                resDistance = (double) Math.round((calculateDistance() * mStepCount) * 100) / 100; // 4.248 --> 4.25
+                resultDistance = resDistance + " km";
+                distanceTravelled.setText(resultDistance);
                 mStepCountTextView.setText(String.valueOf(mStepCount));
             }
         });
@@ -177,7 +184,7 @@ public class PodometreActivity extends AppCompatActivity {
         return age;
     }
 
-    public double getCaloris(){
+    public double getCalories(){
         if (gender == 0) {
             resultE = height * 0.415 * 0.00001 * (weight*2.02);
         }
@@ -186,5 +193,20 @@ public class PodometreActivity extends AppCompatActivity {
         }
 
         return resultE;
+    }
+
+    /**
+     * Calculates the distance travelled
+     * @return The distance travalled
+     */
+    public double calculateDistance(){
+        double distance = 0;
+        if (gender == 0) {
+            distance = height * 0.415 * 0.00001;
+        }
+        if (gender == 1) {
+            distance = height * 0.413 * 0.00001;
+        }
+        return distance;
     }
 }

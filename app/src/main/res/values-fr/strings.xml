@@ -19,6 +19,7 @@
     <string name="acquisition_deleted">Acquisition supprimée</string>
     <string name="url_server">http://192.168.42.165:8080/</string>
     <string name="activity_podometre">Podometre</string>
+    <string name="distance">Distance parourue:</string>
     <string name="invalid_profile">Profil Invalide</string>
 
     <string-array name="sport_activity">
