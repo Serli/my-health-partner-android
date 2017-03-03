@@ -6,4 +6,19 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/blueButton</item>
+
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/blueBackground</item>
+        <item name="android:calendarTextColor">@color/blueBackground</item>
+        <item name="android:dayOfWeekBackground">@color/blueBackground</item>
+        <item name="android:yearListSelectorColor">@color/blueButton</item>
+        <item name="android:datePickerMode">calendar</item>
+    </style>
+
 </resources>

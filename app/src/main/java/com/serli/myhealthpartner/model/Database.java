@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class Database extends SQLiteOpenHelper {
 
-    public final static int VERSION = 1;
+    public final static int VERSION = 2;
 
     public final static String PROFILE_TABLE = "Profile_DB";
     public final static String PROFILE_ID = "ID";

@@ -21,6 +21,11 @@
     <string name="activity_podometre">Podometre</string>
     <string name="distance">Distance parourue:</string>
     <string name="invalid_profile">Profil Invalide</string>
+    <string name="profile_information">Informations du Profil</string>
+    <string name="profile_quit_forbidden">Il faut renseigner un profil</string>
+    <string name="female">Femme</string>
+    <string name="male">Homme</string>
+    <string name="save">Sauvegarder</string>
 
     <string-array name="sport_activity">
         <item>Marche</item>

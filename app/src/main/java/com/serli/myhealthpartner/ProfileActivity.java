@@ -1,24 +1,34 @@
 package com.serli.myhealthpartner;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.serli.myhealthpartner.controller.ProfileController;
 import com.serli.myhealthpartner.model.ProfileData;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,64 +46,89 @@ public class ProfileActivity extends AppCompatActivity {
 
     private ProfileController controller;
 
-    private Spinner spinnerGender;
-    private String[] gender;
     private EditText editTextHeight;
     private EditText editTextWeight;
-    private DatePicker datePickerBirthday;
+    private EditText editTextBirthday;
     ProfileData profile;
+    int genderChoice;
+    Calendar c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profile);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         controller = new ProfileController(this);
         profile = new ProfileData();
 
-        gender = getResources().getStringArray(R.array.gender);
-
-        spinnerGender = (Spinner) findViewById(R.id.spinner_gender);
+        genderChoice = -1;
         editTextHeight = (EditText) findViewById(R.id.editText_height);
         editTextWeight = (EditText) findViewById(R.id.editText_weight);
-        datePickerBirthday = (DatePicker) findViewById(R.id.datePicker_birthday);
+        editTextBirthday = (EditText) findViewById(R.id.editText_birthday);
 
+        TextView textViewProfile = (TextView) findViewById(R.id.profile_information);
+        final Button buttonGenderFemale = (Button) findViewById(R.id.gender_button_female);
+        final Button buttonGenderMale = (Button) findViewById(R.id.gender_button_male);
+        final Button buttonSignUp = (Button) findViewById(R.id.signup_button);
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "Poppins-Regular.ttf");
+        Typeface fontBold = Typeface.createFromAsset(getAssets(), "Poppins-SemiBold.ttf");
+
+        editTextHeight.setTypeface(font);
+        editTextWeight.setTypeface(font);
+        editTextBirthday.setTypeface(font);
+        textViewProfile.setTypeface(fontBold);
+        buttonGenderFemale.setTypeface(font);
+        buttonGenderMale.setTypeface(font);
+        buttonSignUp.setTypeface(font);
 
         if (controller.getProfile() != null) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profile);
+            setSupportActionBar(toolbar);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
             profile = controller.getProfile();
 
-            spinnerGender.setSelection(profile.getGender());
-            editTextHeight.setText(String.valueOf(profile.getHeight()));
-            editTextWeight.setText(String.valueOf(profile.getWeight()));
+            if (profile.getGender() == 0){
+                buttonGenderMale.setBackground(getResources().getDrawable(R.drawable.signup_selected_button));
+                buttonGenderMale.setTextColor(getResources().getColor(R.color.blueBackground));
+                genderChoice = 0;
+            }
+            else if(profile.getGender() == 1){
+                buttonGenderFemale.setBackground(getResources().getDrawable(R.drawable.signup_selected_button));
+                buttonGenderFemale.setTextColor(getResources().getColor(R.color.blueBackground));
+                genderChoice = 1;
+            }
+
+            editTextHeight.setText(String.valueOf(profile.getHeight()) + " cm");
+            editTextWeight.setText(String.valueOf(profile.getWeight()) + " kg");
 
             Date d = profile.getBirthday();
-            Calendar calendar_tmp = Calendar.getInstance();
-            calendar_tmp.setTime(d);
-            datePickerBirthday.updateDate(calendar_tmp.get(Calendar.YEAR), calendar_tmp.get(Calendar.MONTH), calendar_tmp.get(Calendar.DAY_OF_MONTH));
+            c = Calendar.getInstance();
+            c.setTime(d);
+            String myFormat = "dd/MM/yyyy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+            editTextBirthday.setText(sdf.format(c.getTime()));
         }
 
-        final Button button_validate = (Button) findViewById(R.id.button_validate);
-        button_validate.setOnClickListener(new View.OnClickListener() {
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editTextHeight.getText().length() > 0 && editTextWeight.getText().length() > 0) {
+                if (editTextHeight.getText().length() > 0 && editTextWeight.getText().length() > 0 && genderChoice > -1 && c != null) {
                     profile.setId_profile(profile.getId_profile() + 1);
-                    profile.setGender(spinnerGender.getSelectedItemPosition());
+                    profile.setGender(genderChoice);
                     profile.setHeight(Integer.parseInt(editTextHeight.getText().toString()));
                     profile.setWeight(Integer.parseInt(editTextWeight.getText().toString()));
 
-                    int day = datePickerBirthday.getDayOfMonth();
-                    int month = datePickerBirthday.getMonth();
-                    int year = datePickerBirthday.getYear();
+                    int year = c.get(Calendar.YEAR);
+                    int month = c.get(Calendar.MONTH);
+                    int day = c.get(Calendar.DAY_OF_MONTH);
 
-                    Calendar calendar_birthday = Calendar.getInstance();
-                    calendar_birthday.set(year, month, day);
+                    Calendar calendarBirthday = Calendar.getInstance();
+                    calendarBirthday.set(year, month, day);
 
-                    profile.setBirthday(calendar_birthday.getTime());
+                    profile.setBirthday(calendarBirthday.getTime());
 
                     TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                     telephonyManager.getDeviceId();
@@ -111,8 +146,64 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGender.setAdapter(adapter);
+        buttonGenderFemale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(genderChoice == 0 || genderChoice == -1){
+                    buttonGenderFemale.setBackground(getResources().getDrawable(R.drawable.signup_selected_button));
+                    buttonGenderFemale.setTextColor(getResources().getColor(R.color.blueBackground));
+                    buttonGenderMale.setBackground(getResources().getDrawable(R.drawable.signup_unselected_button));
+                    buttonGenderMale.setTextColor(getResources().getColor(R.color.white));
+                    genderChoice = 1;
+                }
+            }
+        });
+
+        buttonGenderMale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (genderChoice == 1 || genderChoice == -1) {
+                    buttonGenderMale.setBackground(getResources().getDrawable(R.drawable.signup_selected_button));
+                    buttonGenderMale.setTextColor(getResources().getColor(R.color.blueBackground));
+                    buttonGenderFemale.setBackground(getResources().getDrawable(R.drawable.signup_unselected_button));
+                    buttonGenderFemale.setTextColor(getResources().getColor(R.color.white));
+                    genderChoice = 0;
+                }
+            }
+        });
+
+        editTextBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog=new DatePickerDialog(ProfileActivity.this, R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
+                        c.set(Calendar.YEAR, selectedYear);
+                        c.set(Calendar.MONTH, selectedMonth);
+                        c.set(Calendar.DAY_OF_MONTH, selectedDay);
+                        String myFormat = "dd/MM/yyyy";
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+                        editTextBirthday.setText(sdf.format(c.getTime()));
+                    }
+                },mYear, mMonth, mDay);
+                dialog.setTitle("Select date");
+                dialog.show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (controller.getProfile() == null) {
+            Toast.makeText(ProfileActivity.this, R.string.profile_quit_forbidden,Toast.LENGTH_LONG).show();
+        }
+        else{
+            ProfileActivity.super.onBackPressed();
+        }
     }
 }

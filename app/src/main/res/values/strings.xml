@@ -26,9 +26,11 @@
     <string name="distance">Distance travelled:</string>
     <string name="thresh_val">Thresh val:</string>
     <string name="time_val">Time:</string>
+    <string name="profile_information">Profile Information</string>
+    <string name="profile_quit_forbidden">You have to set a profile</string>
     <string name="invalid_profile">Invalid profile</string>
-
-
-
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="save">Save</string>
 
 </resources>

@@ -21,6 +21,11 @@
     <string name="activity_podometre">Podometer</string>
     <string name="distance">Distance travelled:</string>
     <string name="invalid_profile">Invalid profile</string>
+    <string name="profile_information">Profile Information</string>
+    <string name="profile_quit_forbidden">You have to set a profile</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="save">Save</string>
 
     <string-array name="sport_activity">
         <item>Walk</item>

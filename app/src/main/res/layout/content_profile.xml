@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_profile"
@@ -9,107 +9,172 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@color/blueBackground"
+    android:weightSum="1"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.serli.myhealthpartner.ProfileActivity"
     tools:showIn="@layout/activity_profile">
 
-    <TextView
-        android:text="@string/text_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_weight"
-        android:gravity="left"
-        android:padding="15dp"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/textView_height"
-        android:layout_alignRight="@+id/textView_height" />
-
-    <TextView
-        android:text="@string/text_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_height"
-        android:padding="15dp"
-        android:gravity="left"
-        android:paddingTop="10dp"
-        android:layout_below="@+id/textView_gender"
-        android:layout_alignStart="@+id/textView_gender" />
-
-    <Spinner
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner_gender"
-        android:gravity="left"
-        android:padding="15dp"
-        android:paddingTop="10dp"
-        android:layout_above="@+id/textView_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView_gender"
-        android:layout_toEndOf="@+id/textView_gender" />
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
-    <TextView
-        android:text="@string/text_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_gender"
-        android:gravity="left"
-        android:elevation="1dp"
-        android:padding="15dp"
-        android:layout_marginTop="42dp"
-        android:layout_alignParentStart="true" />
+        <ImageView
+            android:layout_width="101dp"
+            android:layout_height="95dp"
+            android:layout_gravity="center"
+            app:srcCompat="@mipmap/ic_profile"
+            android:id="@+id/profile_image" />
+    </FrameLayout>
 
-    <EditText
-        android:hint="@string/hint_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:layout_above="@+id/textView_weight"
-        android:id="@+id/editText_height"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView_weight" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:hint="@string/hint_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText_weight"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView_weight"
-        android:layout_alignBottom="@+id/textView_weight" />
+        <TextView
+            android:id="@+id/profile_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/profile_information"
+            android:textColor="@color/white"
+            android:textSize="10pt"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"/>
 
-    <TextView
-        android:text="@string/text_birthday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_birthday"
-        android:gravity="left"
-        android:padding="15dp"
-        android:paddingTop="5dp"
-        android:maxWidth="100dp"
-        android:layout_alignBottom="@+id/datePicker_birthday"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="66dp" />
+    </LinearLayout>
 
-    <DatePicker
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="50dp"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+            <Button
+                android:text="@string/male"
+                android:textColor="@color/white"
+                android:background="@drawable/choice_button"
+                android:id="@+id/gender_button_male"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                android:text="@string/female"
+                android:textColor="@color/white"
+                android:background="@drawable/choice_button"
+                android:id="@+id/gender_button_female"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_profile"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/datePicker_birthday"
-        style="@android:style/Widget.DatePicker"
-        android:layout_marginEnd="19dp"
-        android:layout_below="@+id/editText_weight"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="26dp" />
+        android:layout_weight="0.85"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp">
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText_height"
+            android:hint="@string/text_height"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="275dp"
+            android:background="@null"
+            android:gravity="center_vertical|center"
+            android:drawableLeft="@mipmap/ic_height" />
+
+        <View
+            android:id="@+id/underLine1"
+            android:layout_width="275dp"
+            android:layout_height="2dp"
+            android:layout_below="@+id/editText_height"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:background="@color/white" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText_weight"
+            android:hint="@string/text_weight"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="275dp"
+            android:background="@null"
+            android:gravity="center_vertical|center"
+            android:drawableLeft="@mipmap/ic_weight" />
+
+        <View
+            android:id="@+id/underLine2"
+            android:layout_width="275dp"
+            android:layout_height="2dp"
+            android:layout_below="@+id/editText_weight"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:background="@color/white" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:ems="10"
+            android:id="@+id/editText_birthday"
+            android:hint="@string/text_birthday"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="275dp"
+            android:background="@null"
+            android:focusable="false"
+            android:gravity="center_vertical|center"
+            android:drawableLeft="@mipmap/ic_birthday" />
+
+        <View
+            android:id="@+id/underLine3"
+            android:layout_width="275dp"
+            android:layout_height="2dp"
+            android:layout_below="@+id/editText_birthday"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
 
     <Button
-        android:text="Validate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_validate"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:id="@+id/signup_button"
+        android:background="@drawable/signup_button"
+        android:layout_gravity="center" />
 
-
-</RelativeLayout>
+</LinearLayout>
