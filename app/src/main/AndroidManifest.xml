@@ -32,6 +32,11 @@
             android:label="@string/activity_podometre"
            >
 
+       </activity>
+
+        <activity android:name=".RepportActivity"
+            android:label="@string/activity_repport"
+            >
         </activity>
 
         <receiver android:name="com.serli.myhealthpartner.PowerBroadcastReceiver">

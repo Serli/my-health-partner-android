@@ -29,6 +29,11 @@
     <string name="profile_information">Profile Information</string>
     <string name="profile_quit_forbidden">You have to set a profile</string>
     <string name="invalid_profile">Invalid profile</string>
+    <string name="activity_repport">Repport</string>
+
+
+
+
     <string name="female">Female</string>
     <string name="male">Male</string>
     <string name="save">Save</string>

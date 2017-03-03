@@ -41,7 +41,7 @@ import static org.hamcrest.Matchers.not;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
-    @Rule
+  /*  @Rule
     public ActivityTestRule<MainActivity> mainActivityTestRule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
@@ -154,5 +154,5 @@ public class MainActivityTest {
             }
         };
     }
-
+*/
 }

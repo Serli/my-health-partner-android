@@ -10,15 +10,21 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
 
-    <item
+  <!--  <item
         android:id="@+id/action_show_data"
         android:title="@string/action_show_datas"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 
     <item
         android:id="@+id/action_podometre"
         android:title="@string/activity_podometre"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_repport"
+        android:title="@string/activity_repport"
         android:orderInCategory="100"
         app:showAsAction="never" />
 
