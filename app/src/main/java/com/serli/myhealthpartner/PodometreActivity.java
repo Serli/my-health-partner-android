@@ -81,7 +81,7 @@ public class PodometreActivity extends AppCompatActivity {
         // initialize accelerometer
         SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         mAccelDetector = new AccelerometerDetector(sensorManager);
-        mAccelDetector.setStepCountChangeListener(new OnStepCountChangeListener() {
+        mAccelDetector.setStepCountChangeListener(new AccelerometerDetector.OnStepCountChangeListener() {
             @Override
             public void onStepCountChange(long eventMsecTime) {
                 ++mStepCount;
