@@ -9,11 +9,17 @@ import com.serli.myhealthpartner.model.AccelerometerDAO;
 import com.serli.myhealthpartner.model.AccelerometerData;
 import com.serli.myhealthpartner.model.CompleteData;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -56,7 +62,18 @@ public class MainController {
     public void sendAcquisition() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(String.valueOf("http://192.168.42.165:8080/"))
-                .addConverterFactory(new NullOnEmptyConverterFactory())
+                .addConverterFactory(new Converter.Factory() {
+                    @Override
+                    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+                        final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
+                        return new Converter<ResponseBody, Object>() {
+                            @Override
+                            public Object convert(ResponseBody body) throws IOException {
+                                if (body.contentLength() == 0) return null;
+                                return delegate.convert(body);                }
+                        };
+                    }
+                })
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -96,15 +113,15 @@ public class MainController {
 
         deleteAcquisition();
 
-        Call<ArrayList<CompleteData>> callData = post.sendData(data);
-        callData.enqueue(new Callback<ArrayList<CompleteData>>() {
+        Call<List<Long>> callData = post.sendData(data);
+        callData.enqueue(new Callback<List<Long>>() {
             @Override
-            public void onResponse(Call<ArrayList<CompleteData>> call, Response<ArrayList<CompleteData>> response) {
+            public void onResponse(Call<List<Long>> call, Response<List<Long>> response) {
                 System.out.println("Send Acquisition OK !");
             }
 
             @Override
-            public void onFailure(Call<ArrayList<CompleteData>> call, Throwable t) {
+            public void onFailure(Call<List<Long>> call, Throwable t) {
                 System.out.println("Send Acquisition KO !");
                 t.printStackTrace();
             }
