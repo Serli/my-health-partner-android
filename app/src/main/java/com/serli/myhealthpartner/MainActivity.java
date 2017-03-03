@@ -53,7 +53,6 @@ import java.util.concurrent.TimeUnit;
  * View of the main activity..<br/>
  * in this view we allow the user choose de duration and type  of his activity
  */
-// TODO : Add send and delete acquisition.
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
 
     private MainController mainController;
@@ -230,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-        //   setContentView(R.layout.activity_podometre);
+        requestPhoneStatePermission();
 
         // set default locale:
         Locale.setDefault(Locale.ENGLISH);
@@ -249,9 +248,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         distanceTravelled=(TextView)findViewById(R.id.number_distance);//
 
         profileController = new ProfileController(this);
-        height = profileController.getProfile().getHeight();
-        weight = profileController.getProfile().getWeight();
-        gender = profileController.getProfile().getGender();
+        if (profileController.getProfile() != null) {
+            height = profileController.getProfile().getHeight();
+            weight = profileController.getProfile().getWeight();
+            gender = profileController.getProfile().getGender();
+        }
         /****************/
 
         // timer counter
