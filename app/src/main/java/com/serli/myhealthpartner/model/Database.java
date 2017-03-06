@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Database where we store user's profile information and acceleremoter data
+ * Database where we store user's profile information and accelerometer data
  */
 public class Database extends SQLiteOpenHelper {
 
-    public final static int VERSION = 2;
+    public final static int VERSION = 3;
 
     public final static String PROFILE_TABLE = "Profile_DB";
     public final static String PROFILE_ID = "ID";
@@ -35,6 +35,7 @@ public class Database extends SQLiteOpenHelper {
     public final static String PEDOMETER_ACTIVITY = "Activity";
 
     /**
+     * Create the database with the given context.
      * @param context The context where the class is called
      */
     public Database(Context context) {
@@ -42,8 +43,8 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Tables creation
-     * @param sqLiteDatabase
+     * Tables creation on the given SQLite database.
+     * @param sqLiteDatabase The database where the tables have to be created
      */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -93,4 +94,4 @@ public class Database extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_PEDOMETER_TABLE);
         onCreate(sqLiteDatabase);
     }
-}
+}""
