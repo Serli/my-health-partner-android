@@ -94,4 +94,4 @@ public class Database extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_PEDOMETER_TABLE);
         onCreate(sqLiteDatabase);
     }
-}""
+}
