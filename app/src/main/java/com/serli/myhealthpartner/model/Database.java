@@ -20,14 +20,14 @@ public class Database extends SQLiteOpenHelper {
     public final static String PROFILE_GENDER = "Gender";
 
     public final static String ACC_TABLE = "Accelerometer_DB";
-    public final static String ACC_TSTMP = "Timestamp";
+    public final static String ACC_TIMESTAMP = "Timestamp";
     public final static String ACC_X = "X_pos";
     public final static String ACC_Y = "Y_pos";
     public final static String ACC_Z = "Z_pos";
     public final static String ACC_ACTIVITY = "Activity";
 
     public final static String PEDOMETER_TABLE = "Pedometer_DB";
-    public final static String PEDOMETER_TSTMP = "Timestamp";
+    public final static String PEDOMETER_TIMESTAMP = "Timestamp";
     public final static String PEDOMETER_DURATION =  "Duration";
     public final static String PEDOMETER_STEPS = "Steps";
     public final static String PEDOMETER_DISTANCE = "Distance";
@@ -57,14 +57,14 @@ public class Database extends SQLiteOpenHelper {
                 + PROFILE_GENDER + " INTEGER NOT NULL" + ");";
 
         String CREATE_ACC_TABLE = "CREATE TABLE " + ACC_TABLE + " ("
-                + ACC_TSTMP + " INTEGER PRIMARY KEY,"
+                + ACC_TIMESTAMP + " INTEGER PRIMARY KEY,"
                 + ACC_X + " FLOAT NOT NULL,"
                 + ACC_Y + " FLOAT NOT NULL,"
                 + ACC_Z + " FLOAT NOT NULL,"
                 + ACC_ACTIVITY + " INTEGER NOT NULL" + ");";
 
         String CREATE_PEDOMETER_TABLE = "CREATE TABLE " + PEDOMETER_TABLE + " ("
-                + PEDOMETER_TSTMP + " LONG PRIMARY KEY,"
+                + PEDOMETER_TIMESTAMP + " LONG PRIMARY KEY,"
                 + PEDOMETER_DURATION + " LONG NOT NULL,"
                 + PEDOMETER_STEPS + " INTEGER NOT NULL,"
                 + PEDOMETER_DISTANCE + " INTEGER NOT NULL,"
