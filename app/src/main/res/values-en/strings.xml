@@ -28,13 +28,9 @@
     <string name="save">Save</string>
 
     <string-array name="sport_activity">
-        <item>Walk</item>
-        <item>Fast walk</item>
-        <item>Run</item>
-        <item>Fast run</item>
-        <item>Trekking</item>
-        <item>Hiking</item>
         <item>Inactive</item>
+        <item>Walk</item>
+        <item>Run</item>
     </string-array>
     <string-array name="gender">
         <item>Man</item>

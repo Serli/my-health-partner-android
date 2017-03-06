@@ -28,13 +28,9 @@
     <string name="save">Sauvegarder</string>
 
     <string-array name="sport_activity">
-        <item>Marche</item>
-        <item>Marche rapide</item>
-        <item>Course</item>
-        <item>Course rapide</item>
-        <item>Trekking</item>
-        <item>Randonnée</item>
         <item>Inactif</item>
+        <item>Marche</item>
+        <item>Course</item>
     </string-array>
     <string-array name="gender">
         <item>Homme</item>
