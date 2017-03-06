@@ -19,25 +19,20 @@ public class Database extends SQLiteOpenHelper {
     public final static String PROFILE_AGE = "Age";
     public final static String PROFILE_GENDER = "Gender";
 
-    public final static String ACC_TABLE = "Accelero_DB";
+    public final static String ACC_TABLE = "Accelerometer_DB";
     public final static String ACC_TSTMP = "Timestamp";
     public final static String ACC_X = "X_pos";
     public final static String ACC_Y = "Y_pos";
     public final static String ACC_Z = "Z_pos";
     public final static String ACC_ACTIVITY = "Activity";
 
-    public final static String PODOMETRE_TABLE = "Podometre_DB";
-    public final static String PODOMETRE_TSTMP = "Timestamp";
-    public final static String PODOMETRE_DURATION =  "Duration";
-    public final static String PODOMETRE_STEPS = "Steps";
-    public final static String PODOMETRE_DISTANCE = "Distance";
-    public final static String PODOMETRE_CALORIES = "Calories";
-    public final static String PODOMETRE_ACTIVITY = "Activity";
-
-
-
-
-
+    public final static String PEDOMETER_TABLE = "Pedometer_DB";
+    public final static String PEDOMETER_TSTMP = "Timestamp";
+    public final static String PEDOMETER_DURATION =  "Duration";
+    public final static String PEDOMETER_STEPS = "Steps";
+    public final static String PEDOMETER_DISTANCE = "Distance";
+    public final static String PEDOMETER_CALORIES = "Calories";
+    public final static String PEDOMETER_ACTIVITY = "Activity";
 
     /**
      * @param context The context where the class is called
@@ -67,18 +62,18 @@ public class Database extends SQLiteOpenHelper {
                 + ACC_Z + " FLOAT NOT NULL,"
                 + ACC_ACTIVITY + " INTEGER NOT NULL" + ");";
 
-        String CREATE_PODOMETRE_TABLE = "CREATE TABLE " + PODOMETRE_TABLE + " ("
-                + PODOMETRE_TSTMP + " LONG PRIMARY KEY,"
-                + PODOMETRE_DURATION + " LONG NOT NULL,"
-                + PODOMETRE_STEPS + " INTEGER NOT NULL,"
-                + PODOMETRE_DISTANCE + " INTEGER NOT NULL,"
-                + PODOMETRE_CALORIES + " INTEGER NOT NULL,"
-                + PODOMETRE_ACTIVITY + " INTEGER NOT NULL"
+        String CREATE_PEDOMETER_TABLE = "CREATE TABLE " + PEDOMETER_TABLE + " ("
+                + PEDOMETER_TSTMP + " LONG PRIMARY KEY,"
+                + PEDOMETER_DURATION + " LONG NOT NULL,"
+                + PEDOMETER_STEPS + " INTEGER NOT NULL,"
+                + PEDOMETER_DISTANCE + " INTEGER NOT NULL,"
+                + PEDOMETER_CALORIES + " INTEGER NOT NULL,"
+                + PEDOMETER_ACTIVITY + " INTEGER NOT NULL"
                 + ");";
 
         sqLiteDatabase.execSQL(CREATE_PROFILE_TABLE);
         sqLiteDatabase.execSQL(CREATE_ACC_TABLE);
-        sqLiteDatabase.execSQL(CREATE_PODOMETRE_TABLE);
+        sqLiteDatabase.execSQL(CREATE_PEDOMETER_TABLE);
     }
 
     /**
@@ -91,11 +86,11 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String DROP_PROFILE_TABLE = "DROP TABLE IF EXISTS " + PROFILE_TABLE + ";";
         String DROP_ACC_TABLE = "DROP TABLE IF EXISTS " + ACC_TABLE + ";";
-        String DROP_PODOMETRE_TABLE = "DROP TABLE IF EXISTS " + PODOMETRE_TABLE + ";";
+        String DROP_PEDOMETER_TABLE = "DROP TABLE IF EXISTS " + PEDOMETER_TABLE + ";";
 
         sqLiteDatabase.execSQL(DROP_PROFILE_TABLE);
         sqLiteDatabase.execSQL(DROP_ACC_TABLE);
-        sqLiteDatabase.execSQL(DROP_PODOMETRE_TABLE);
+        sqLiteDatabase.execSQL(DROP_PEDOMETER_TABLE);
         onCreate(sqLiteDatabase);
     }
 }
