@@ -1,14 +1,8 @@
 package com.serli.myhealthpartner.model;
 
-import java.util.Date;
+public class PedometerData {
 
-/**
- * Created by kahina on 01/02/2017.
- */
-
-public class PodometreData {
-
-    private long tstmp;
+    private long timestamp;
     private long duration;
     private int steps;
     private double calories;
@@ -24,12 +18,12 @@ public class PodometreData {
         this.steps = steps;
     }
 
-    public long getTstmp() {
-        return tstmp;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setTstmp(long tstmp) {
-        this.tstmp = tstmp;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public long getDuration() {

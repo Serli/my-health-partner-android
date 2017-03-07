@@ -86,4 +86,8 @@ public class AccelerometerDetector implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+    public interface OnStepCountChangeListener {
+        void onStepCountChange(long eventMsecTime);
+    }
 }

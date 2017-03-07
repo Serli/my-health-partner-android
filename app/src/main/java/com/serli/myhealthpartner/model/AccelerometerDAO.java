@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Link between the acceleremoter data table in the {@link Database} and the controllers.
@@ -15,7 +14,7 @@ public class AccelerometerDAO {
 
     private Database database;
     private SQLiteDatabase db;
-    private String[] allColumns = {Database.ACC_TSTMP, Database.ACC_X, Database.ACC_Y, Database.ACC_Z, Database.ACC_ACTIVITY};
+    private String[] allColumns = {Database.ACC_TIMESTAMP, Database.ACC_X, Database.ACC_Y, Database.ACC_Z, Database.ACC_ACTIVITY};
 
     /**
      * @param context The context where the dao is called
@@ -49,7 +48,7 @@ public class AccelerometerDAO {
      */
     public void addEntry(float x, float y, float z, long timestamp, int activity) {
         ContentValues values = new ContentValues();
-        values.put(Database.ACC_TSTMP, timestamp);
+        values.put(Database.ACC_TIMESTAMP, timestamp);
         values.put(Database.ACC_X, x);
         values.put(Database.ACC_Y, y);
         values.put(Database.ACC_Z, z);
@@ -67,7 +66,7 @@ public class AccelerometerDAO {
 
         ArrayList<AccelerometerData> acc_data_list = new ArrayList<>();
         Cursor cursor = db.query(Database.ACC_TABLE,
-                allColumns, null, null, null, null, Database.ACC_TSTMP + " DESC");
+                allColumns, null, null, null, null, Database.ACC_TIMESTAMP + " DESC");
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {

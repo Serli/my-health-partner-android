@@ -13,176 +13,52 @@
     tools:context="com.serli.myhealthpartner.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container_layout"
-        android:weightSum="10">
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progressBar" />
 
-        <!-- Controls-->
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/controls_layout"
-            android:layout_weight="2">
+    <TextView
+        android:text="0/0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView_objective" />
 
-            <!-- buttons, sliders -->
-            <LinearLayout
-                android:id="@+id/user_interaction_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:weightSum="3"
-                android:layout_weight="1">
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView_walking" />
 
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/textView_running" />
 
-            </LinearLayout>
+    <Button
+        android:text="@string/button_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/button_profile" />
 
-            <LinearLayout
-                android:id="@+id/settings_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:baselineAligned="false"
-                android:layout_weight="1"
-                android:weightSum="10">
-
-                <LinearLayout
-                    android:id="@+id/buttons_layout"
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0"/>
-
-                <TextView
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/thresh_val"
-                    android:textAlignment="center"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/threshval_textView"
-                    android:gravity="center" />
-
-                <SeekBar
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/offset_seekBar"
-                    android:layout_gravity="center"
-                    android:layout_weight="7"
-                    android:foregroundGravity="center" />
-
-            </LinearLayout>
-
-            <!-- Information layout -->
-            <LinearLayout
-                android:id="@+id/info_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:weightSum="6">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/steps_count"
-                    android:textAlignment="center"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/stepcount_textView"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tempoval_textView"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/time_val"
-                    android:textAlignment="center"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/timeVal_textView"
-                    android:gravity="center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/infoc_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:weightSum="6">
-
-                <TextView
-                    android:layout_weight="2.03"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/calorie"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:id="@+id/calorie_affiche" />
-
-                <TextView
-                    android:layout_weight="3.44"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/number_calorie"
-                    android:gravity="center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/infod_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:weightSum="6">
-
-                <TextView
-                    android:layout_weight="2.03"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/distance"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:id="@+id/distance_affiche" />
-
-                <TextView
-                    android:layout_weight="3.44"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/number_distance"
-                    android:gravity="center" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    <Button
+        android:text="@string/button_tracker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="58dp"
+        android:id="@+id/button_tracking" />
 </RelativeLayout>

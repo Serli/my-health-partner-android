@@ -32,17 +32,17 @@
 
 
     <string-array name="sport_activity">
-        <item>Marche</item>
-        <item>Marche rapide</item>
-        <item>Course</item>
-        <item>Course rapide</item>
-        <item>Trekking</item>
-        <item>Randonnée</item>
         <item>Inactif</item>
+        <item>Marche</item>
+        <item>Course</item>
     </string-array>
     <string-array name="gender">
         <item>Homme</item>
         <item>Femme</item>
     </string-array>
+    <string name="activity_report">Rapport</string>
+    <string name="button_profile">Profil</string>
+    <string name="button_tracker">Suivi</string>
+    <string name="toast_profile_missing">Veuillez compléter votre profil</string>
 
 </resources>

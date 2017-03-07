@@ -33,6 +33,7 @@
     <string name="activity_repport">Repport</string>
     <string name="follow_up">Follow-Up</string>
     <string name="main_activity_information">Today\'s Results</string>
+    <string name="activity_report">Report</string>
 
 
 
@@ -40,5 +41,8 @@
     <string name="female">Female</string>
     <string name="male">Male</string>
     <string name="save">Save</string>
+    <string name="button_profile">profile</string>
+    <string name="button_tracker">Tracker</string>
+    <string name="toast_profile_missing">Please enter your profile</string>
 
 </resources>
