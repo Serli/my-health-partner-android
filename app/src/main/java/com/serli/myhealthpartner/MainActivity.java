@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-        requestPhoneStatePermission();
+        /*requestPhoneStatePermission();
 
         // set default locale:
         Locale.setDefault(Locale.ENGLISH);
@@ -239,10 +239,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         formatThreshTextView(AccelerometerProcessing.THRESH_INIT_VALUE);
         mStepCountTextView = (TextView)findViewById(R.id.stepcount_textView);
         mStepCountTextView.setText(String.valueOf(0));
-        mTimeValTextView = (TextView)findViewById(R.id.timeVal_textView);
+        mTimeValTextView = (TextView)findViewById(R.id.timeVal_textView);*/
 
         /****************/
-        counter = (TextView) findViewById(R.id.calorie_affiche);
+        /*counter = (TextView) findViewById(R.id.calorie_affiche);
         number_calorie=(TextView)findViewById(R.id.number_calorie);
         //dist
         counterDistance=(TextView) findViewById(R.id.distance_affiche);
@@ -253,11 +253,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             height = profileController.getProfile().getHeight();
             weight = profileController.getProfile().getWeight();
             gender = profileController.getProfile().getGender();
-        }
+        }*/
         /****************/
 
         // timer counter
-        mTimer = new TimeCounter(mHandler,mTimeValTextView);
+        /*mTimer = new TimeCounter(mHandler,mTimeValTextView);
         mTimer.start();
 
         // initialize accelerometer
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        initializeSeekBar();
+        initializeSeekBar();*/
 
     }
 
