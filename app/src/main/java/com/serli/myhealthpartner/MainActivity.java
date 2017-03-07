@@ -233,8 +233,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 runningCalorieText.setText(mainController.getCalorieRunning() + "");
                                 runningStepText.setText(mainController.getStepRunning() + "");
                                 ArrayList<PieEntry> pedometerEntries = new ArrayList<>();
-                                pedometerEntries.add(new PieEntry(Math.round(stepDone)));
-                                pedometerEntries.add(new PieEntry(Math.round(stepPlanned - stepDone)));
+                                pedometerEntries.add(new PieEntry(stepDone));
+                                pedometerEntries.add(new PieEntry(stepPlanned - stepDone));
                                 PieDataSet dataSet = new PieDataSet(pedometerEntries, "Pedometer");
                                 dataSet.setColors(Color.argb(255, 255, 255, 255), Color.argb(255, 255, 193, 9));
                                 pieChart.getData().setDataSet(dataSet);

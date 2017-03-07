@@ -202,9 +202,9 @@ public class MainController {
      * Return the number of steps accomplished today by walking.
      * @return the number of steps
      */
-    public float getStepWalking() {
+    public int getStepWalking() {
         List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
-        float count = 0;
+        int count = 0;
         for(PedometerData pedometerData : pedometerDataList)
             if(pedometerData.getActivity() == 1)
                 count += pedometerData.getSteps();
@@ -228,9 +228,9 @@ public class MainController {
      * Return the number of steps accomplished today by running.
      * @return the number of steps
      */
-    public float getStepRunning() {
+    public int getStepRunning() {
         List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
-        float count = 0;
+        int count = 0;
         for(PedometerData pedometerData : pedometerDataList)
             if(pedometerData.getActivity() == 2)
                 count += pedometerData.getSteps();
