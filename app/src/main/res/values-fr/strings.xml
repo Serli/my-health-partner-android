@@ -36,5 +36,9 @@
         <item>Homme</item>
         <item>Femme</item>
     </string-array>
+    <string name="activity_report">Rapport</string>
+    <string name="button_profile">Profil</string>
+    <string name="button_tracker">Suivi</string>
+    <string name="toast_profile_missing">Veuillez compléter votre profil</string>
 
 </resources>

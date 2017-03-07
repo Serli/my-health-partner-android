@@ -29,7 +29,7 @@
     <string name="profile_information">Profile Information</string>
     <string name="profile_quit_forbidden">You have to set a profile</string>
     <string name="invalid_profile">Invalid profile</string>
-    <string name="activity_repport">Repport</string>
+    <string name="activity_report">Report</string>
 
 
 
@@ -37,5 +37,8 @@
     <string name="female">Female</string>
     <string name="male">Male</string>
     <string name="save">Save</string>
+    <string name="button_profile">profile</string>
+    <string name="button_tracker">Tracker</string>
+    <string name="toast_profile_missing">Please enter your profile</string>
 
 </resources>

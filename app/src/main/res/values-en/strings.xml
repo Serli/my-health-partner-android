@@ -36,5 +36,9 @@
         <item>Man</item>
         <item>Woman</item>
     </string-array>
+    <string name="activity_report">Report</string>
+    <string name="button_profile">Profile</string>
+    <string name="button_tracker">Tracker</string>
+    <string name="toast_profile_missing">Please enter your profile</string>
 
 </resources>
