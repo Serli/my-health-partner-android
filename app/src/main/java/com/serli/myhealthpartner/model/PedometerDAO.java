@@ -5,6 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
+
 /**
  * DAO for the pedometer table.
  */
@@ -44,19 +52,15 @@ public class PedometerDAO {
      * @param data the data object containing the pedometer information
      */
     public void addEntry(PedometerData data) {
-        if (data.getSteps() != 0 && data.getTimestamp() != 0) {
-            db.delete(Database.PEDOMETER_TABLE, null, null);
-
-            ContentValues values = new ContentValues();
-            values.put(Database.PEDOMETER_TIMESTAMP, data.getTimestamp());
-            values.put(Database.PEDOMETER_DURATION, data.getDuration());
-            values.put(Database.PEDOMETER_STEPS, data.getSteps());
-            values.put(Database.PEDOMETER_CALORIES, data.getCalories());
-            values.put(Database.PEDOMETER_DISTANCE, data.getDistance());
-            values.put(Database.PEDOMETER_ACTIVITY, data.getActivity());
-
-            db.insert(Database.PEDOMETER_TABLE, null, values);
-        }
+        ContentValues values = new ContentValues();
+        values.put(Database.PEDOMETER_TIMESTAMP, data.getTimestamp());
+        values.put(Database.PEDOMETER_DURATION, data.getDuration());
+        values.put(Database.PEDOMETER_STEPS, data.getSteps());
+        values.put(Database.PEDOMETER_CALORIES, data.getCalories());
+        values.put(Database.PEDOMETER_DISTANCE, data.getDistance());
+        values.put(Database.PEDOMETER_ACTIVITY, data.getActivity());
+        db.insert(Database.PEDOMETER_TABLE, null, values);
+        System.out.println("data inserted !");
     }
 
     /**
@@ -68,6 +72,23 @@ public class PedometerDAO {
         Cursor c = db.query(Database.PEDOMETER_TABLE, allColumns, null, null, null, null, null);
         c.moveToFirst();
         return cursorToData(c);
+    }
+
+    public List<PedometerData> getTodayPedometer() {
+        List<PedometerData> resultList = new ArrayList<>();
+        Calendar today = new GregorianCalendar();
+        today.set(Calendar.HOUR_OF_DAY,0);
+        today.set(Calendar.MINUTE,0);
+        today.set(Calendar.SECOND,0);
+        today.set(Calendar.MILLISECOND,0);
+
+        Cursor c = db.query(Database.PEDOMETER_TABLE, allColumns, Database.PEDOMETER_TIMESTAMP + " >= " + today.getTimeInMillis(), null, null, null, null);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            resultList.add(cursorToData(c));
+            c.moveToNext();
+        }
+        return resultList;
     }
 
     /**
@@ -83,8 +104,8 @@ public class PedometerDAO {
             pedData.setTimestamp(cursor.getInt(0));
             pedData.setDuration(cursor.getLong(1));
             pedData.setSteps(cursor.getInt(2));
-            pedData.setCalories(cursor.getInt(3));
-            pedData.setDistance(cursor.getInt(4));
+            pedData.setDistance(cursor.getInt(3));
+            pedData.setCalories(cursor.getInt(4));
             pedData.setActivity(cursor.getInt(5));
         }
         return pedData;

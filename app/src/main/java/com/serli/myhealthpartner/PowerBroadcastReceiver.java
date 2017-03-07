@@ -6,10 +6,6 @@ import android.content.Intent;
 
 import com.serli.myhealthpartner.controller.ProfileController;
 
-/**
- * Created by nathan on 31/01/17.
- */
-
 public class PowerBroadcastReceiver extends BroadcastReceiver {
     private ProfileController profileController;
 

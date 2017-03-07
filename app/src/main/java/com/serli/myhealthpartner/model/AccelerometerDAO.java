@@ -66,7 +66,7 @@ public class AccelerometerDAO {
 
         ArrayList<AccelerometerData> acc_data_list = new ArrayList<>();
         Cursor cursor = db.query(Database.ACC_TABLE,
-                allColumns, null, null, null, null, Database.ACC_TIMESTAMP + " DESC");
+                allColumns, null, null, null, null, Database.ACC_TIMESTAMP);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {

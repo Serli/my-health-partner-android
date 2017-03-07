@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.serli.myhealthpartner.AccelerometerService;
-import com.serli.myhealthpartner.R;
 import com.serli.myhealthpartner.model.AccelerometerDAO;
 import com.serli.myhealthpartner.model.AccelerometerData;
 import com.serli.myhealthpartner.model.CompleteData;
+import com.serli.myhealthpartner.model.PedometerDAO;
+import com.serli.myhealthpartner.model.PedometerData;
+import com.serli.myhealthpartner.model.ProfileDAO;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -30,7 +32,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainController {
 
     private Context context;
-    private AccelerometerDAO dao;
+    private AccelerometerDAO accDAO;
+    private PedometerDAO pedDAO;
+    private ProfileDAO proDAO;
 
     /**
      * Build a new main controller with the given context.
@@ -40,9 +44,14 @@ public class MainController {
     public MainController(Context context) {
         this.context = context;
 
-        dao = new AccelerometerDAO(context);
+        accDAO = new AccelerometerDAO(context);
+        accDAO.open();
 
-        dao.open();
+        pedDAO = new PedometerDAO(context);
+        pedDAO.open();
+
+        proDAO = new ProfileDAO(context);
+        proDAO.open();
     }
 
     /**
@@ -60,29 +69,13 @@ public class MainController {
      * Send the stored data to the server, then delete it.
      */
     public void sendAcquisition() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(String.valueOf("http://192.168.42.165:8080/"))
-                .addConverterFactory(new Converter.Factory() {
-                    @Override
-                    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-                        final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
-                        return new Converter<ResponseBody, Object>() {
-                            @Override
-                            public Object convert(ResponseBody body) throws IOException {
-                                if (body.contentLength() == 0) return null;
-                                return delegate.convert(body);                }
-                        };
-                    }
-                })
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        final ArrayList<AccelerometerData> accData = accDAO.getData();
 
-        PostTo post = retrofit.create(PostTo.class);
+        deleteAcquisition();
+
         ProfileController controllerProfile = new ProfileController(context);
 
         ArrayList<CompleteData> data = new ArrayList<>();
-
-        ArrayList<AccelerometerData> accData = dao.getData();
 
         Calendar curr = Calendar.getInstance();
         Calendar birth = Calendar.getInstance();
@@ -111,18 +104,65 @@ public class MainController {
             data.add(cd);
         }
 
-        deleteAcquisition();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(String.valueOf("http://salquier.pro:80/"))
+                .addConverterFactory(new Converter.Factory() {
+                    @Override
+                    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+                        final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
+                        return new Converter<ResponseBody, Object>() {
+                            @Override
+                            public Object convert(ResponseBody body) throws IOException {
+                                if (body.contentLength() == 0) return null;
+                                return delegate.convert(body);                }
+                        };
+                    }
+                })
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        PostTo post = retrofit.create(PostTo.class);
 
         Call<List<Long>> callData = post.sendData(data);
         callData.enqueue(new Callback<List<Long>>() {
             @Override
             public void onResponse(Call<List<Long>> call, Response<List<Long>> response) {
-                System.out.println("Send Acquisition OK !");
+                if(response.isSuccessful()) {
+                    System.out.println("Send Acquisition OK !");
+                    System.out.println(response.body());
+                    long timestampStart = accData.get(0).getTimestamp();
+                    List<Long> activities = response.body();
+                    for (int i = 0; i < activities.size(); ++i) {
+                        // System.out.println("response : " + activities.get(i));
+                        if (activities.get(i) != 0) {
+                            PedometerData pedometerData = new PedometerData();
+                            pedometerData.setActivity(activities.get(i).intValue());
+                            pedometerData.setTimestamp(timestampStart + i * 5000L);
+                            pedometerData.setDuration(5000L);
+                            if (activities.get(i) == 1) {
+                                pedometerData.setDistance(0.007);
+                                pedometerData.setCalories(proDAO.getProfile().getWeight() * 0.007);
+                            }
+                            if (activities.get(i) == 2) {
+                                pedometerData.setDistance(0.014);
+                                pedometerData.setCalories(proDAO.getProfile().getWeight() * 0.014);
+                            }
+                            pedDAO.addEntry(pedometerData);
+                        }
+                    }
+                }
+                else {
+                    System.out.println("Send Acquisition OK but response unsuccessful " + response.raw());
+                    for(AccelerometerData acc : accData)
+                        accDAO.addEntry(acc.getX(), acc.getY(), acc.getZ(), acc.getTimestamp(), acc.getActivity());
+                }
             }
 
             @Override
             public void onFailure(Call<List<Long>> call, Throwable t) {
                 System.out.println("Send Acquisition KO !");
+                for(AccelerometerData acc : accData)
+                    accDAO.addEntry(acc.getX(), acc.getY(), acc.getZ(), acc.getTimestamp(), acc.getActivity());
                 t.printStackTrace();
             }
         });
@@ -132,17 +172,95 @@ public class MainController {
      * Delete the stored data.
      */
     public void deleteAcquisition() {
-        dao.deleteData();
+        accDAO.deleteData();
     }
 
+    /**
+     * Return the accelerometer data stored in the database.
+     * @return The accelerometer data
+     */
     public ArrayList<AccelerometerData> getData() {
-        ArrayList<AccelerometerData> data = dao.getData();
+        ArrayList<AccelerometerData> data = accDAO.getData();
         return data;
+    }
+
+    /**
+     * Return the calorie burned today by walking.
+     * @return the calorie burned
+     */
+    public float getCalorieWalking() {
+        List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
+        float count = 0;
+        for(PedometerData pedometerData : pedometerDataList)
+            if(pedometerData.getActivity() == 1)
+                count += pedometerData.getCalories();
+        return count;
+    }
+
+    /**
+     * Return the number of steps accomplished today by walking.
+     * @return the number of steps
+     */
+    public float getStepWalking() {
+        List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
+        float count = 0;
+        for(PedometerData pedometerData : pedometerDataList)
+            if(pedometerData.getActivity() == 1)
+                count += pedometerData.getSteps();
+        return count;
+    }
+
+    /**
+     * Return the calorie burned today by running.
+     * @return the calorie burned
+     */
+    public float getCalorieRunning() {
+        List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
+        float count = 0;
+        for(PedometerData pedometerData : pedometerDataList)
+            if(pedometerData.getActivity() == 2)
+                count += pedometerData.getCalories();
+        return count;
+    }
+
+    /**
+     * Return the number of steps accomplished today by running.
+     * @return the number of steps
+     */
+    public float getStepRunning() {
+        List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
+        float count = 0;
+        for(PedometerData pedometerData : pedometerDataList)
+            if(pedometerData.getActivity() == 2)
+                count += pedometerData.getSteps();
+        return count;
+    }
+
+    /**
+     * Return the number of step accomplished today.
+     * @return the number of step
+     */
+    public int getStepDone() {
+        List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
+        int count = 0;
+        for(PedometerData pedometerData : pedometerDataList)
+            count += pedometerData.getSteps();
+        return count;
+    }
+
+    /**
+     * Return the number of step planned for today.
+     * @return the number of step
+     */
+    public int getStepPlanned() {
+        return 10000;
     }
 
     @Override
     protected void finalize() throws Throwable {
-        dao.close();
+        accDAO.close();
+        pedDAO.close();
+        proDAO.close();
         super.finalize();
     }
 }

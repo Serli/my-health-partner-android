@@ -1,24 +1,19 @@
 package com.serli.myhealthpartner;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.Service;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.os.RemoteException;
 import android.os.SystemClock;
-import android.widget.Toast;
 
 import com.serli.myhealthpartner.controller.MainController;
+import com.serli.myhealthpartner.controller.PedometerController;
 import com.serli.myhealthpartner.model.AccelerometerDAO;
 
 /**
@@ -32,6 +27,7 @@ public class AccelerometerService extends Service {
     public static final int MSG_ACQUISITION_STOP = 4;
 
     private MainController mainController;
+    private PedometerController pedometerController;
 
     private final Messenger messenger = new Messenger(new IncomingMessageHandler());
     private Messenger clientMessenger = null;
@@ -40,7 +36,7 @@ public class AccelerometerService extends Service {
 
     private AccelerometerDAO dao;
 
-    private int activity;
+    private int activity = -1;
     private long previousTimestamp = 0;
 
     private Handler handler = new Handler();
@@ -80,7 +76,7 @@ public class AccelerometerService extends Service {
     };
 
     /**
-     * The method onCreate is called when the activity AccelerometreService is created
+     * The method onCreate is called when the activity AccelerometerService is created
      */
     @Override
     public void onCreate() {
@@ -112,7 +108,7 @@ public class AccelerometerService extends Service {
      * Start the acquisition of the accelerometer data.
      */
     private void startAcquisition() {
-        sensorManager.registerListener(sensorEventListener, accelerometerSensor, 100000);
+        sensorManager.registerListener(sensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
         handler.postDelayed(sendRun, 60000);
     }
 

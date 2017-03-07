@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RepportActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,17 +26,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.serli.myhealthpartner.MainActivity" />
-        </activity>
-
-        <activity android:name=".PodometreActivity"
-            android:label="@string/activity_podometre"
-           >
-
-       </activity>
-
-        <activity android:name=".MainActivity"
-            android:label="@string/activity_repport"
-            >
         </activity>
 
         <receiver android:name="com.serli.myhealthpartner.PowerBroadcastReceiver">
