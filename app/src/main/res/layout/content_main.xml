@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_main"
+    android:id="@+id/test"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,54 +11,123 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.serli.myhealthpartner.MainActivity"
-    tools:showIn="@layout/activity_main">
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/progressBar" />
+    android:orientation="vertical"
+    android:background="@color/blueBackground"
+    android:weightSum="1">
 
     <TextView
-        android:text="0/0"
-        android:layout_width="wrap_content"
+        android:id="@+id/main_information"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView_objective" />
+        android:gravity="center"
+        android:text="@string/main_activity_information"
+        android:textColor="@color/white"
+        android:textSize="10pt"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"/>
 
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView_walking" />
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart_podometer"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+    </com.github.mikephil.charting.charts.PieChart>
 
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/textView_running" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:background="@drawable/tile_main_activity"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/ic_walking"
+                android:id="@+id/imageView_walking"
+                android:layout_weight="1"
+                android:minHeight="80dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_walking_today_calories"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/blueButton"
+                android:textSize="9pt"
+                android:layout_marginTop="-30dp"/>
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_walking_today_steps"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/blueButton"
+                android:textSize="8pt"
+                android:layout_marginTop="-30dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:background="@drawable/tile_main_activity"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/ic_running"
+                android:id="@+id/imageView_running"
+                android:layout_weight="1"
+                android:minHeight="80dp"/>
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_running_today_calories"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/blueButton"
+                android:textSize="9pt"
+                android:layout_marginTop="-30dp"/>
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_running_today_steps"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/blueButton"
+                android:textSize="8pt"
+                android:layout_marginTop="-30dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <Button
-        android:text="@string/button_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button_profile" />
+        android:layout_width="175dp"
+        android:layout_height="50dp"
+        android:text="@string/follow_up"
+        android:textColor="@color/white"
+        android:background="@drawable/signup_button"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"/>
 
-    <Button
-        android:text="@string/button_tracker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="58dp"
-        android:id="@+id/button_tracking" />
-</RelativeLayout>
+</LinearLayout>
