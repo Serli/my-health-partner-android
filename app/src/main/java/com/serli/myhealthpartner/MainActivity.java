@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView runningStepText;
     private TextView walkingStepText;
 
+    private Thread updateThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,8 +212,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Update periodically the information displayed in the UI.
+     */
     private void updateObjective() {
-        Thread update = new Thread() {
+        if(updateThread != null)
+            updateThread.interrupt();
+        updateThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -222,24 +229,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 int stepPlanned = mainController.getStepPlanned();
                                 int stepDone = mainController.getStepDone();
                                 walkingCalorieText.setText(mainController.getCalorieWalking() + "");
+                                walkingStepText.setText(mainController.getStepWalking() + "");
                                 runningCalorieText.setText(mainController.getCalorieRunning() + "");
+                                runningStepText.setText(mainController.getStepRunning() + "");
                                 ArrayList<PieEntry> pedometerEntries = new ArrayList<>();
-                                pedometerEntries.add(new PieEntry(stepDone));
-                                pedometerEntries.add(new PieEntry(stepPlanned-stepDone));
+                                pedometerEntries.add(new PieEntry(Math.round(stepDone)));
+                                pedometerEntries.add(new PieEntry(Math.round(stepPlanned - stepDone)));
                                 PieDataSet dataSet = new PieDataSet(pedometerEntries, "Pedometer");
                                 dataSet.setColors(Color.argb(255, 255, 255, 255), Color.argb(255, 255, 193, 9));
                                 pieChart.getData().setDataSet(dataSet);
-                                pieChart.setCenterText(Math.round(stepDone) + " / "  + Math.round(stepPlanned));
+                                pieChart.setCenterText(Math.round(stepDone) + " / " + Math.round(stepPlanned));
+                                pieChart.notifyDataSetChanged();
                             }
                         });
-                        Thread.sleep(5000);
+                        Thread.sleep(1000);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         };
-        update.start();
+        updateThread.start();
     }
 
     /**
@@ -303,5 +313,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        doUnbindService();
+        updateThread.interrupt();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        doBindService();
+        updateObjective();
+        super.onResume();
     }
 }

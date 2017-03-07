@@ -133,7 +133,6 @@ public class MainController {
                     long timestampStart = accData.get(0).getTimestamp();
                     List<Long> activities = response.body();
                     for (int i = 0; i < activities.size(); ++i) {
-                        // System.out.println("response : " + activities.get(i));
                         if (activities.get(i) != 0) {
                             PedometerData pedometerData = new PedometerData();
                             pedometerData.setActivity(activities.get(i).intValue());
@@ -142,10 +141,12 @@ public class MainController {
                             if (activities.get(i) == 1) {
                                 pedometerData.setDistance(0.007);
                                 pedometerData.setCalories(proDAO.getProfile().getWeight() * 0.007);
+                                pedometerData.setSteps(8);
                             }
                             if (activities.get(i) == 2) {
                                 pedometerData.setDistance(0.014);
                                 pedometerData.setCalories(proDAO.getProfile().getWeight() * 0.014);
+                                pedometerData.setSteps(16);
                             }
                             pedDAO.addEntry(pedometerData);
                         }
