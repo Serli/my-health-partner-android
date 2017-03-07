@@ -29,7 +29,7 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piechart_podometer"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="250dp">
     </com.github.mikephil.charting.charts.PieChart>
 
     <LinearLayout
@@ -135,7 +135,9 @@
             android:text="@string/action_profile"
             android:textColor="@color/white"
             android:background="@drawable/signup_button"
-            android:layout_marginRight="20dp"/>
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"/>
 
         <Button
             android:layout_width="175dp"
@@ -143,6 +145,9 @@
             android:id="@+id/button_tracking"
             android:text="@string/follow_up"
             android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/signup_button"/>
 
     </LinearLayout>
