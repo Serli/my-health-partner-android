@@ -190,7 +190,7 @@ public class ProfileActivity extends AppCompatActivity {
                         editTextBirthday.setText(sdf.format(c.getTime()));
                     }
                 },mYear, mMonth, mDay);
-                dialog.setTitle("Select date");
+                dialog.setTitle(R.string.select_date);
                 dialog.show();
             }
         });

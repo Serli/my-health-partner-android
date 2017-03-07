@@ -172,7 +172,7 @@
         android:text="@string/save"
         android:textColor="@color/white"
         android:layout_width="175dp"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:id="@+id/signup_button"
         android:background="@drawable/signup_button"
         android:layout_gravity="center" />

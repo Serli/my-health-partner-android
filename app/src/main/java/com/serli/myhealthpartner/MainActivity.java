@@ -37,6 +37,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.PieChart;
 import com.serli.myhealthpartner.controller.MainController;
 import com.serli.myhealthpartner.controller.ProfileController;
 import com.serli.myhealthpartner.model.AccelerometerData;
