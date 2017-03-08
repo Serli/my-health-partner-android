@@ -109,7 +109,7 @@ public class AccelerometerService extends Service {
      */
     private void startAcquisition() {
         sensorManager.registerListener(sensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        handler.postDelayed(sendRun, 60000);
+        handler.postDelayed(sendRun, 5000);
     }
 
     /**
@@ -117,7 +117,7 @@ public class AccelerometerService extends Service {
      */
     private void sendAcquisition() {
         mainController.sendAcquisition();
-        handler.postDelayed(sendRun, 60000);
+        handler.postDelayed(sendRun, 5000);
     }
 
     /**

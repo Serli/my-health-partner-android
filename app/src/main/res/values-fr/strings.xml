@@ -44,5 +44,6 @@
     <string name="button_profile">Profil</string>
     <string name="button_tracker">Suivi</string>
     <string name="toast_profile_missing">Veuillez compléter votre profil</string>
+    <string name="step">pas</string>
 
 </resources>
