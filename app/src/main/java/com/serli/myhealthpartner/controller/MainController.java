@@ -139,14 +139,14 @@ public class MainController {
                             pedometerData.setTimestamp(timestampStart + i * 5000L);
                             pedometerData.setDuration(5000L);
                             if (activities.get(i) == 1) {
-                                pedometerData.setDistance(0.007);
-                                pedometerData.setCalories(proDAO.getProfile().getWeight() * 0.007);
-                                pedometerData.setSteps(8);
+                                pedometerData.setDistance(7.0 / 1000.0);
+                                pedometerData.setCalories(proDAO.getProfile().getWeight() * pedometerData.getDistance());
+                                pedometerData.setSteps(5);
                             }
                             if (activities.get(i) == 2) {
-                                pedometerData.setDistance(0.014);
-                                pedometerData.setCalories(proDAO.getProfile().getWeight() * 0.014);
-                                pedometerData.setSteps(16);
+                                pedometerData.setDistance(14.0 / 1000.0);
+                                pedometerData.setCalories(proDAO.getProfile().getWeight() * pedometerData.getDistance());
+                                pedometerData.setSteps(10);
                             }
                             pedDAO.addEntry(pedometerData);
                         }

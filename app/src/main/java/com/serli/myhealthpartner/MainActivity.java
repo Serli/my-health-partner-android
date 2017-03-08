@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dataSet.setColors(Color.argb(255, 255, 255, 255), Color.argb(255, 255, 193, 9));
         PieData data = new PieData(dataSet);
         data.setValueTypeface(fontSemiBold);
-        data.setValueTextSize(15f);
+        data.setValueTextSize(15);
         pieChart.setData(data);
         Description description = new Description();
         description.setText("");
@@ -240,10 +240,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void run() {
                                 int stepPlanned = mainController.getStepPlanned();
                                 int stepDone = mainController.getStepDone();
-                                walkingCalorieText.setText(mainController.getCalorieWalking() + "");
-                                walkingStepText.setText(mainController.getStepWalking() + "");
-                                runningCalorieText.setText(mainController.getCalorieRunning() + "");
-                                runningStepText.setText(mainController.getStepRunning() + "");
+                                walkingCalorieText.setText(((int)Math.ceil(mainController.getCalorieWalking())) + " cal");
+                                walkingStepText.setText(mainController.getStepWalking() + " " + getResources().getText(R.string.step).toString());
+                                runningCalorieText.setText(((int)Math.ceil(mainController.getCalorieRunning())) + " cal");
+                                runningStepText.setText(mainController.getStepRunning() + " " + getResources().getText(R.string.step).toString());
                                 ArrayList<PieEntry> pedometerEntries = new ArrayList<>();
                                 pedometerEntries.add(new PieEntry(stepDone));
                                 pedometerEntries.add(new PieEntry(stepPlanned - stepDone));
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 pieChart.notifyDataSetChanged();
                             }
                         });
-                        Thread.sleep(1000);
+                        Thread.sleep(5000);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -330,14 +330,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         doUnbindService();
-        updateThread.interrupt();
+        //updateThread.interrupt();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         doBindService();
-        updateObjective();
+        //updateObjective();
         super.onResume();
     }
 }
