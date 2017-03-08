@@ -28,9 +28,12 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.serli.myhealthpartner.controller.MainController;
 import com.serli.myhealthpartner.controller.ProfileController;
 
@@ -79,6 +82,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pedometerEntries.add(new PieEntry(0));
         pedometerEntries.add(new PieEntry(0));
         PieDataSet dataSet = new PieDataSet(pedometerEntries, "Pedometer");
+
+        IValueFormatter formatter = new IValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return ((int) value + "");
+            }
+        };
+        dataSet.setValueFormatter(formatter);
+
         dataSet.setColors(Color.argb(255, 255, 255, 255), Color.argb(255, 255, 193, 9));
         PieData data = new PieData(dataSet);
         data.setValueTypeface(fontSemiBold);
