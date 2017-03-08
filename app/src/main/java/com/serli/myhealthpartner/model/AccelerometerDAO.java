@@ -74,6 +74,7 @@ public class AccelerometerDAO {
             acc_data_list.add(acc_data);
             cursor.moveToNext();
         }
+        cursor.close();
         return acc_data_list;
     }
 

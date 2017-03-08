@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class Database extends SQLiteOpenHelper {
 
-    public final static int VERSION = 3;
+    public final static int VERSION = 4;
 
     public final static String PROFILE_TABLE = "Profile_DB";
     public final static String PROFILE_ID = "ID";
@@ -67,8 +67,8 @@ public class Database extends SQLiteOpenHelper {
                 + PEDOMETER_TIMESTAMP + " LONG PRIMARY KEY,"
                 + PEDOMETER_DURATION + " LONG NOT NULL,"
                 + PEDOMETER_STEPS + " INTEGER NOT NULL,"
-                + PEDOMETER_DISTANCE + " INTEGER NOT NULL,"
-                + PEDOMETER_CALORIES + " INTEGER NOT NULL,"
+                + PEDOMETER_DISTANCE + " FLOAT NOT NULL,"
+                + PEDOMETER_CALORIES + " FLOAT NOT NULL,"
                 + PEDOMETER_ACTIVITY + " INTEGER NOT NULL"
                 + ");";
 

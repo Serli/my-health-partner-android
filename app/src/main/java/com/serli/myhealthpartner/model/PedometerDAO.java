@@ -71,7 +71,9 @@ public class PedometerDAO {
     public PedometerData getPedometer() {
         Cursor c = db.query(Database.PEDOMETER_TABLE, allColumns, null, null, null, null, null);
         c.moveToFirst();
-        return cursorToData(c);
+        PedometerData data = cursorToData(c);
+        c.close();
+        return data;
     }
 
     public List<PedometerData> getTodayPedometer() {
@@ -88,6 +90,7 @@ public class PedometerDAO {
             resultList.add(cursorToData(c));
             c.moveToNext();
         }
+        c.close();
         return resultList;
     }
 
@@ -101,11 +104,11 @@ public class PedometerDAO {
         PedometerData pedData = null;
         if (!cursor.isAfterLast()) {
             pedData = new PedometerData();
-            pedData.setTimestamp(cursor.getInt(0));
+            pedData.setTimestamp(cursor.getLong(0));
             pedData.setDuration(cursor.getLong(1));
             pedData.setSteps(cursor.getInt(2));
-            pedData.setDistance(cursor.getInt(3));
-            pedData.setCalories(cursor.getInt(4));
+            pedData.setCalories(cursor.getDouble(3));
+            pedData.setDistance(cursor.getDouble(4));
             pedData.setActivity(cursor.getInt(5));
         }
         return pedData;

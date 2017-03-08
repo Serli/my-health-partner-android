@@ -67,7 +67,9 @@ public class ProfileDAO {
     public ProfileData getProfile() {
         Cursor c = db.query(Database.PROFILE_TABLE, allColumns, null, null, null, null, null);
         c.moveToFirst();
-        return cursorToData(c);
+        ProfileData profile = cursorToData(c);
+        c.close();
+        return profile;
     }
 
     private ProfileData cursorToData(Cursor cursor) {
