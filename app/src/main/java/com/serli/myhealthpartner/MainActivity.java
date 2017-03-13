@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Thread.sleep(5000);
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         };
@@ -330,14 +330,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         doUnbindService();
-        //updateThread.interrupt();
+        updateThread.interrupt();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         doBindService();
-        //updateObjective();
+        updateObjective();
         super.onResume();
     }
 }
