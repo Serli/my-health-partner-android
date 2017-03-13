@@ -19,11 +19,11 @@ import com.serli.myhealthpartnerdevelopper.controller.MainController;
 import com.serli.myhealthpartnerdevelopper.model.AccelerometerDAO;
 
 /**
- * This service store the accelerometer data for the duration specified in the intent.<br/>
+ * This service stores the accelerometer data for the duration specified in the intent.<br/>
  * The intent given in the start command must contain 2 extra data :<br/>
- * &nbsp;&nbsp;&nbsp;<b>duration</b> : an long which specify the duration of the acquisition.<br/>
+ * &nbsp;&nbsp;&nbsp;<b>duration</b> : a long which specify the duration of the acquisition.<br/>
  * &nbsp;&nbsp;&nbsp;<b>activity</b> : an int which specify the sport activity performed during the acquisition.<br/> <br/>
- * When the service is started, it will play a beep sound as start signal for the user and an other at the end of the acquisition as stop signal for the user.
+ * When the service is started, it will play a beep sound as start signal for the user and another one at the end of the acquisition as stop signal for the user.
  */
 public class AccelerometerService extends Service {
 
@@ -51,6 +51,10 @@ public class AccelerometerService extends Service {
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private SensorEventListener sensorEventListener = new SensorEventListener() {
+        /**
+         * We add a new AccelerometerData in the accelerometer data table each time the sensor changes.
+         * @param sensorEvent
+         */
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             float x = sensorEvent.values[0];
@@ -80,7 +84,7 @@ public class AccelerometerService extends Service {
     };
 
     /**
-     * the methode onCreate is called when the activity AccelerometreService is first created
+     * The method onCreate is called when the activity AccelerometreService is first created. A beep sound is played to signal it.
      */
     @Override
     public void onCreate() {
@@ -98,8 +102,8 @@ public class AccelerometerService extends Service {
     }
 
     /**
-     * the methode onStartCommand is called from the alarm, it schedules a new alarm for N minutes later, and spawns a thread to do its networking.
-     * * @return START_NOT_STICKY Constant to return from onStartCommand(Intent, int, int): if this service's process is killed while it is started, and there are no new start intents to deliver to it.
+     * The method onStartCommand is called from the alarm, it schedules a new alarm for N minutes later, and spawns a thread to do its networking.
+     * @return START_NOT_STICKY Constant to return from onStartCommand(Intent, int, int): if this service's process is killed while it is started, and there are no new start intents to deliver to it.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -160,7 +164,7 @@ public class AccelerometerService extends Service {
     }
 
     /**
-     * The final call  receive before the activity is destroyed..
+     * The final call receive before the activity is destroyed..
      */
     @Override
     public void onDestroy() {

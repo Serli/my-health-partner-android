@@ -12,6 +12,9 @@ import retrofit2.http.POST;
  * Created by nathan on 21/12/16.
  */
 
+/**
+ * Interface which permits smarphone to send data to the server
+ */
 public interface PostTo {
     @POST("/data")
     Call<ArrayList<CompleteData>> sendData (@Body ArrayList<CompleteData> data);

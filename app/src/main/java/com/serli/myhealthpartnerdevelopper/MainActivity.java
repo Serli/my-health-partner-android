@@ -43,9 +43,8 @@ import java.util.Locale;
 
 /**
  * View of the main activity..<br/>
- * in this view we allow the user choose de duration and type  of his activity
+ * in this view we allow the user choose the duration and type of his activity
  */
-// TODO : Add send and delete acquisition.
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
 
     private MainController mainController;
@@ -62,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final Messenger messenger = new Messenger(new IncomingMessageHandler());
     private boolean serviceBound = false;
 
+    /**
+     * Sets the main view and verify if a profile exists
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        // To launch the acquisition
         if (view.getId() == R.id.button_start_stop) {
             if (acquisitionStarted) {
                 doUnbindService();
@@ -153,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+        // To manage the display of the data (update/clear)
         if (view.getId() == R.id.button_update || view.getId() == R.id.button_clear) {
             if (view.getId() == R.id.button_clear) {
                 mainController.deleteAcquisition();
@@ -298,13 +303,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         alertDialog.show();
     }
 
-    //Requesting permission
+    //Requesting permission to read IMEI number
     private void requestPhoneStatePermission(){
         //Ask for the permission
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
     }
 
-    //This method will be called when the user will tap on allow or deny
+    //This method will be called when the user will click on allow or deny
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -322,6 +327,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Permits to verify if a profile already exists or not
+     */
     public void verifyExistingProfile(){
         if (profileController.getProfile() == null){
             Intent intent = new Intent(this, ProfileActivity.class);

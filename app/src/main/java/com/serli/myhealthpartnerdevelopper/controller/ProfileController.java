@@ -45,6 +45,10 @@ public class ProfileController {
         dao.addEntry(data);
     }
 
+    /**
+     * Close the DAO and release the resources
+     * @throws Throwable
+     */
     @Override
     protected void finalize() throws Throwable {
         dao.close();

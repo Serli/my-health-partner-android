@@ -21,10 +21,8 @@ import java.util.Date;
 
 /**
  * View of Profile Activity.<br/>
- * allow the usr to Inform his profile (gender, Birthday, Height and weight)<br/>
- * *  this information will be used to Calculates calories burned <br/>
+ * Allow the user to inform his profile (Gender, Height, Weight and Birthday) <br/>
  */
-
 public class ProfileActivity extends AppCompatActivity {
 
     private ProfileController controller;
@@ -56,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         datePickerBirthday = (DatePicker) findViewById(R.id.datePicker_birthday);
 
 
+        // If the profile is not null, we display it into the fields
         if (controller.getProfile() != null) {
             profile = controller.getProfile();
 
@@ -68,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
             datePickerBirthday.updateDate(calendar_tmp.get(Calendar.YEAR), calendar_tmp.get(Calendar.MONTH), calendar_tmp.get(Calendar.DAY_OF_MONTH));
         }
 
-
+        // To store the profile when we click on the validate button
         final Button button_validate = (Button) findViewById(R.id.button_validate);
         button_validate.setOnClickListener(new View.OnClickListener() {
             @Override

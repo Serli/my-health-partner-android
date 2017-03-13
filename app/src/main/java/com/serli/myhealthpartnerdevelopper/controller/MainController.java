@@ -103,7 +103,7 @@ public class MainController {
             data.add(cd);
         }
 
-        dao.deleteData();
+        deleteAcquisition();
 
         Call<ArrayList<CompleteData>> callData = post.sendData(data);
         callData.enqueue(new Callback<ArrayList<CompleteData>>() {
@@ -132,6 +132,10 @@ public class MainController {
         return data;
     }
 
+    /**
+     * Close the DAO and release the resources
+     * @throws Throwable
+     */
     @Override
     protected void finalize() throws Throwable {
         dao.close();

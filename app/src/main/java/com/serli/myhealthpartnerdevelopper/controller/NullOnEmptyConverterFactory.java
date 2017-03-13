@@ -12,8 +12,11 @@ import retrofit2.Retrofit;
  * Created by nathan on 26/01/17.
  */
 
-public class NullOnEmptyConverterFactory extends Converter.Factory {
 
+/**
+ * Allows empty sending from smartphone to server
+ */
+public class NullOnEmptyConverterFactory extends Converter.Factory {
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
