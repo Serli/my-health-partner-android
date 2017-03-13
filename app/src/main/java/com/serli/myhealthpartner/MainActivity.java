@@ -40,8 +40,8 @@ import com.serli.myhealthpartner.controller.ProfileController;
 import java.util.ArrayList;
 
 /**
- * View of the main activity..<br/>
- * in this view we allow the user choose de duration and type  of his activity
+ * View of the main activity <br/>
+ * In this view we show to the user his daily results
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
 
@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Thread updateThread;
 
+    /**
+     * Manage the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,6 +159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    /**
+     * Allows user to change the acitvity by clicking on corresponding buttons
+     * @param view The MainActivity view
+     */
     @Override
     public void onClick(View view) {
         if(view.getId() == profileButton.getId()) {
@@ -285,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * Requesting permission
+     * Requesting permission to read the IMEI number
      */
     private void requestPhoneStatePermission(){
         //Ask for the permission

@@ -26,9 +26,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Controller of the main view.
- */
 public class MainController {
 
     private Context context;
@@ -176,19 +173,11 @@ public class MainController {
         accDAO.deleteData();
     }
 
-    /**
-     * Return the accelerometer data stored in the database.
-     * @return The accelerometer data
-     */
     public ArrayList<AccelerometerData> getData() {
         ArrayList<AccelerometerData> data = accDAO.getData();
         return data;
     }
 
-    /**
-     * Return the calorie burned today by walking.
-     * @return the calorie burned
-     */
     public float getCalorieWalking() {
         List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
         float count = 0;
@@ -198,10 +187,6 @@ public class MainController {
         return count;
     }
 
-    /**
-     * Return the number of steps accomplished today by walking.
-     * @return the number of steps
-     */
     public int getStepWalking() {
         List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
         int count = 0;
@@ -211,10 +196,6 @@ public class MainController {
         return count;
     }
 
-    /**
-     * Return the calorie burned today by running.
-     * @return the calorie burned
-     */
     public float getCalorieRunning() {
         List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
         float count = 0;
@@ -224,10 +205,6 @@ public class MainController {
         return count;
     }
 
-    /**
-     * Return the number of steps accomplished today by running.
-     * @return the number of steps
-     */
     public int getStepRunning() {
         List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
         int count = 0;
@@ -237,10 +214,6 @@ public class MainController {
         return count;
     }
 
-    /**
-     * Return the number of step accomplished today.
-     * @return the number of step
-     */
     public int getStepDone() {
         List<PedometerData> pedometerDataList = pedDAO.getTodayPedometer();
         int count = 0;
@@ -249,14 +222,14 @@ public class MainController {
         return count;
     }
 
-    /**
-     * Return the number of step planned for today.
-     * @return the number of step
-     */
     public int getStepPlanned() {
         return 10000;
     }
 
+    /**
+     * Close the DAO and release the resources
+     * @throws Throwable
+     */
     @Override
     protected void finalize() throws Throwable {
         accDAO.close();

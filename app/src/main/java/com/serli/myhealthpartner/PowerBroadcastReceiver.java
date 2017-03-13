@@ -6,6 +6,9 @@ import android.content.Intent;
 
 import com.serli.myhealthpartner.controller.ProfileController;
 
+/**
+ * Launch the application when the smartphone starts
+ */
 public class PowerBroadcastReceiver extends BroadcastReceiver {
     private ProfileController profileController;
 

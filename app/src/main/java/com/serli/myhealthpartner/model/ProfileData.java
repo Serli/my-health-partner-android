@@ -3,7 +3,7 @@ package com.serli.myhealthpartner.model;
 import java.util.Date;
 
 /**
- * Contains the data of the user profile
+ * Contains the data that we need for the user profile
  */
 public class ProfileData {
 

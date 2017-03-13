@@ -17,7 +17,7 @@ public class AccelerometerDAO {
     private String[] allColumns = {Database.ACC_TIMESTAMP, Database.ACC_X, Database.ACC_Y, Database.ACC_Z, Database.ACC_ACTIVITY};
 
     /**
-     * @param context The context where the dao is called
+     * @param context The context where the DAO is called
      */
     public AccelerometerDAO(Context context) {
         this.database = new Database(context);
@@ -57,11 +57,6 @@ public class AccelerometerDAO {
         db.insert(Database.ACC_TABLE, null, values);
     }
 
-    /**
-     * Return a List of {@link AccelerometerData} object containing the accelerometer data.
-     *
-     * @return The accelerometer data.
-     */
     public ArrayList<AccelerometerData> getData() {
 
         ArrayList<AccelerometerData> acc_data_list = new ArrayList<>();
@@ -85,6 +80,12 @@ public class AccelerometerDAO {
         db.delete(Database.ACC_TABLE, null, null);
     }
 
+    /**
+     * Transform a {@link Cursor} in a {@link AccelerometerData}.
+     *
+     * @param cursor the {@link Cursor} to transform
+     * @return the corresponding {@link AccelerometerData}
+     */
     private AccelerometerData cursorToData(Cursor cursor) {
         AccelerometerData acc_data = new AccelerometerData();
         acc_data.setTimestamp(cursor.getLong(0));

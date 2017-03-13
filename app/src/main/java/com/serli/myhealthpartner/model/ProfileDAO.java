@@ -59,11 +59,6 @@ public class ProfileDAO {
         }
     }
 
-    /**
-     * Return a {@link ProfileData} object containing the profile stored.
-     *
-     * @return The profile.
-     */
     public ProfileData getProfile() {
         Cursor c = db.query(Database.PROFILE_TABLE, allColumns, null, null, null, null, null);
         c.moveToFirst();
@@ -72,6 +67,12 @@ public class ProfileDAO {
         return profile;
     }
 
+    /**
+     * Transform a {@link Cursor} in a {@link ProfileData}.
+     *
+     * @param cursor the {@link Cursor} to transform
+     * @return the corresponding {@link ProfileData}
+     */
     private ProfileData cursorToData(Cursor cursor) {
         ProfileData prof_data = null;
         if (!cursor.isAfterLast()) {

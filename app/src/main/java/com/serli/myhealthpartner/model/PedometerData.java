@@ -1,5 +1,8 @@
 package com.serli.myhealthpartner.model;
 
+/**
+ * Contains the data that we need for the follow-up
+ */
 public class PedometerData {
 
     private long timestamp;

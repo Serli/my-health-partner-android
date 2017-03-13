@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Database where we store user's profile information and accelerometer data
+ * Database where we store user's profile information, accelerometer data and pedometer data
  */
 public class Database extends SQLiteOpenHelper {
 
@@ -79,7 +79,7 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Tables update (Drop + Creation)
-     * @param sqLiteDatabase
+     * @param sqLiteDatabase The database where the tables have to be upgraded
      * @param i
      * @param i1
      */

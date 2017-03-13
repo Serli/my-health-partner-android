@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * DAO for the pedometer table.
+ * Link between the pedometer data table in the {@link Database} and the controllers.
  */
 public class PedometerDAO {
 
@@ -63,11 +63,6 @@ public class PedometerDAO {
         System.out.println("data inserted !");
     }
 
-    /**
-     * Return object containing the pedometer stored.
-     *
-     * @return the pedometer
-     */
     public PedometerData getPedometer() {
         Cursor c = db.query(Database.PEDOMETER_TABLE, allColumns, null, null, null, null, null);
         c.moveToFirst();

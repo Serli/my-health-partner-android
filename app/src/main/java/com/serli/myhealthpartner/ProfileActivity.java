@@ -38,8 +38,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * View of Profile Activity.<br/>
- * allow the user to Inform his profile (gender, Birthday, Height and weight)<br/>
- * this information will be used to Calculates calories burned <br/>
+ * Allow the user to inform his profile (Gender, Height, Weight and Birthday)<br/>
+ * These information will be used to calculate calories burned <br/>
  */
 public class ProfileActivity extends AppCompatActivity {
 
@@ -52,6 +52,10 @@ public class ProfileActivity extends AppCompatActivity {
     int genderChoice;
     Calendar c;
 
+    /**
+     * Manage the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,9 @@ public class ProfileActivity extends AppCompatActivity {
         buttonGenderMale.setTypeface(font);
         buttonSignUp.setTypeface(font);
 
+        /**
+         * If there is a profile stored in the profile table, we display the information of this profile for each field
+         */
         if (controller.getProfile() != null) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profile);
             setSupportActionBar(toolbar);
@@ -111,6 +118,9 @@ public class ProfileActivity extends AppCompatActivity {
             editTextBirthday.setText(sdf.format(c.getTime()));
         }
 
+        /**
+         * If the user wants to sign up or to modify a profile, all the information has to be filled
+         */
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +155,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Changes the female gender button if the male gender button was selected
+         */
         buttonGenderFemale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,6 +171,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Changes the male gender button if the female gender button was selected
+         */
         buttonGenderMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +187,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Displays a calendar where the user has to pick his birthday date
+         */
         editTextBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,6 +215,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Permits to go back to the previous activity. A user profile has to be stored to allow that.
+     */
     @Override
     public void onBackPressed(){
         if (controller.getProfile() == null) {

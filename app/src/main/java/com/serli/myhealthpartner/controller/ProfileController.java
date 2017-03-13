@@ -14,9 +14,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Controller for the profile.
- */
 public class ProfileController {
 
     private ProfileDAO dao;
@@ -36,9 +33,6 @@ public class ProfileController {
         profile = dao.getProfile();
     }
 
-    /**
-     * @return The profile stored in the database or null if none exist.
-     */
     public ProfileData getProfile() {
         if (profile == null) {
             profile = dao.getProfile();
@@ -46,14 +40,14 @@ public class ProfileController {
         return profile;
     }
 
-    /**
-     * Set the profile in the database.
-     * @param data The {@link ProfileData} containing the profile.
-     */
     public void setProfile(ProfileData data) {
         dao.addEntry(data);
     }
 
+    /**
+     * Close the DAO and release the resources
+     * @throws Throwable
+     */
     @Override
     protected void finalize() throws Throwable {
         dao.close();

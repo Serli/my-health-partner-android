@@ -44,6 +44,10 @@ public class AccelerometerService extends Service {
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private SensorEventListener sensorEventListener = new SensorEventListener() {
+        /**
+         * If sensor changes and if we have at least 99ms after the last acquisition, we store a new AccelerometerData
+         * @param sensorEvent Permits to get the smartphone's accelerometer data
+         */
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             float x = sensorEvent.values[0];
@@ -121,7 +125,7 @@ public class AccelerometerService extends Service {
     }
 
     /**
-     * The final call  receive before the activity is destroyed..
+     * The final call received before the activity is destroyed..
      */
     @Override
     public void onDestroy() {

@@ -3,9 +3,8 @@ package com.serli.myhealthpartner.model;
 import java.util.List;
 
 /**
- * Created by nathan on 06/01/17.
+ * CompleteData which contains both ProfileData and AccelerometerData parameters
  */
-
 public class CompleteData {
 
     private long imei;
