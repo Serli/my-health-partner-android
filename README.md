@@ -28,7 +28,8 @@ Developer help :
 -------------
 *************
 
-To use your own server, just change the Retrofit baseUrl attribute in the sendAcquisition method of the MainController.
+To use your own server, just change the Retrofit baseUrl attribute in the sendAcquisition method of the MainController. 
+
 For example : retrofit.baseUrl(String.valueOf("Your URL"))
 
 
